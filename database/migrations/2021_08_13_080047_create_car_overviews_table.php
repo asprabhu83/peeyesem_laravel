@@ -19,8 +19,6 @@ class CreateCarOverviewsTable extends Migration
             $table->string('car_description');
             $table->string('overview_image');
             $table->timestamps();
-        });
-        Schema::table('car_overviews', function (Blueprint $table) {
             $table->foreign('car_id')
                 ->references('id')->on('cars')
                 ->onDelete('cascade');

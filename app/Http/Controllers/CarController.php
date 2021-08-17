@@ -19,7 +19,7 @@ use App\Models\CarPriceList;
 class CarController extends Controller
 {
     public function car_detail(Request $request) {
-        $data = $this->validate($request, [
+        $data = $request->validate([
             'car_title'=>'required',
             'car_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -29,11 +29,12 @@ class CarController extends Controller
         $res = new Car;
         $res->car_title = $request->car_title;
         $res->car_image = $filename;
+        $res->save();
         return response($res); 
     }
 
     public function overview(Request $request) {
-        $data = $this->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'car_description'=>'required',
             'overview_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -43,14 +44,14 @@ class CarController extends Controller
         $location = $request->overview_image->move(public_path('images'), $filename);
        
         $res->car_id = $request->car_id;
-        $res->car_description =$request->car_description;
+        $res->car_description = $request->car_description;
         $res->overview_image = $filename;
         $res->save();
         return response($res);
     }
 
     public function overview_details(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'overview_id'=>'required',
             'car_power'=>'required|numeric',
             'car_transmission'=>'required',
@@ -61,7 +62,7 @@ class CarController extends Controller
     }
 
     public function highlight(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'highlight_title'=>'required',
         ]);
@@ -70,11 +71,11 @@ class CarController extends Controller
     }
 
     public function highlightPost(Request $request) {
-        $data = $this->validate($request, [
+        $data = $request->validate([
             'highlight_id'=>'required',
             'post_title'=>'required',
             'post_description'=>'required',
-            'post_image'=>'required', 
+            'post_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
         ]);
         $res = new CarHighlightPost;
         $filename = $request->post_image->getClientOriginalName();
@@ -89,27 +90,22 @@ class CarController extends Controller
     }
 
     public function gallery(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'gallery_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $imgNames = [];
-        foreach ($request->file('gallery_image') as $file) {
-            $filename = $file->getClientOriginalName();
-            $location = $file->move(public_path('gallery'), $filename);
-            array_push($imgNames, $filename);
-        }
-        $names = implode(",", $imgNames);
-        echo $names;
-        // $res = new CarGallery;
-        // $res->car_id = $request->car_id;
-        // $res->gallery_image = $names;
-        // $res->save();
+        $filename = $request->gallery_image->getClientOriginalName();
+        $location = $request->gallery_image->move(public_path('gallery'), $filename);
+
+        $res = new CarGallery;
+        $res->car_id = $request->car_id;
+        $res->gallery_image = $filename;
+        $res->save();
         return response($res);
     }
 
     public function videoLink(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'youtube_link'=>'required', 
             'local_file_link'=>'required',
@@ -119,18 +115,23 @@ class CarController extends Controller
     }
 
     public function carColor(Request $request) {
-        $data = $this->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'color_code'=>'required',
             'color_title'=>'required', 
-            'color_image'=>'required',
+            'color_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $filename = $request->color_image->getClientOriginalName();
+        $location = $request->color_image->move(public_path('gallery'), $filename);
+
         $res = CarColors::create($data);
+        $res->color_image = $filename;
+        $res->save();
         return response($res);
     }
 
     public function specs(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'spec_type'=>'required',
             'spec_model'=>'required',
@@ -142,7 +143,7 @@ class CarController extends Controller
     }
 
     public function variant(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'feature_title'=>'required', 
             'feature_variant_title'=>'required',
@@ -152,7 +153,7 @@ class CarController extends Controller
     }
 
     public function featureModel(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'features_variant_id'=>'required',
             'feature_type'=>'required',
         ]);
@@ -161,7 +162,7 @@ class CarController extends Controller
     }
 
     public function variantFeature(Request $request) {
-        $data = $request->validate($request, [
+        $data = $request->validate([
             'features_model_id'=>'required',
             'variant_feature_type'=>'required',
             'variant_feature_value'=>'required',
@@ -171,7 +172,7 @@ class CarController extends Controller
     }
 
     public function price(Request $request) {
-        $data = $this->validate($request, [
+        $data = $request->validate([
             'car_id'=>'required',
             'features_variant_id'=>'required',
             'car_fuel_type'=>'required',
