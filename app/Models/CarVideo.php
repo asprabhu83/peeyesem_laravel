@@ -13,9 +13,10 @@ class CarVideo extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['car_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'car_id',
         'youtube_link',
         'local_file_link',
     ];

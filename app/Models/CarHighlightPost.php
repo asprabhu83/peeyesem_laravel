@@ -13,9 +13,10 @@ class CarHighlightPost extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['highlight_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'highlight_id',
         'post_title',
         'post_description',
         'post_image'

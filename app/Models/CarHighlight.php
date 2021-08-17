@@ -13,9 +13,10 @@ class CarHighlight extends Model
 
     protected $primaryKey = 'id';
     
-    protected $guarded = ['car_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'car_id',
         'highlight_title',
     ];
     public function cars() {

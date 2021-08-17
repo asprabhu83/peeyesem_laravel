@@ -37,6 +37,9 @@ class Car extends Model
         return $this->hasMany(CarSpec::class, 'car_id');
     }
     public function carFeatures() {
-        return $this->hasMany(carFeatures::class, 'car_id');
+        return $this->hasMany(CarFeatures::class, 'car_id');
+    }
+    public function price() {
+        return $this->hasMany(CarPriceList::class, 'car_id');
     }
 }

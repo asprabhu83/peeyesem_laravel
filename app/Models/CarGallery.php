@@ -13,9 +13,10 @@ class CarGallery extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['car_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'car_id',
         'gallery_image',
     ];
     public function gallery() {

@@ -13,9 +13,10 @@ class CarFeatureVariant extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['car_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'car_id',
         'feature_title',
         'feature_variant_title',
     ];

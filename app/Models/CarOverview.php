@@ -13,11 +13,12 @@ class CarOverview extends Model
 
     protected $primaryKey = 'id';
     
-    protected $guarded = ['car_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'car_id',
         'car_description',
-        'car_image',
+        'overview_image',
     ];
 
     public function cars() {

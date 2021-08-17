@@ -6,6 +6,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ClassDetailsController;
 use App\Http\Controllers\AttributeDetailsController;
+use App\Http\Controllers\CarController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -66,9 +67,16 @@ Route::group(['prefix' => 'userrole'], function()
 
 Route::group(['prefix' => 'cars'], function()  
 {  
-    Route::post('/store', 'CarController@getFormData');
-    Route::get('/index', 'CarController@index');
-    Route::get('/show/{id}', 'CarController@show');
-    Route::put('/update/{id}', 'CarController@update');
-    Route::delete('/delete/{id}', 'CarController@delete');
+    Route::post('/post/car', [CarController::class, 'car_detail']);
+    Route::post('/post/overview_details', [CarController::class, 'overview_details']);
+    Route::post('/post/highlight', [CarController::class, 'highlight']);
+    Route::post('/post/highlight_post', [CarController::class, 'highlightPost']);
+    Route::post('/post/gallery', [CarController::class, 'gallery']);
+    Route::post('/post/videolink', [CarController::class, 'videoLink']);
+    Route::post('/post/carcolor', [CarController::class, 'carColor']);
+    Route::post('/post/specs', [CarController::class, 'specs']);
+    Route::post('/post/variant', [CarController::class, 'variant']);
+    Route::post('/post/feature_model', [CarController::class, 'featureModel']);
+    Route::post('/post/variant_feature', [CarController::class, 'variantFeature']);
+    Route::post('/post/pricelist', [CarController::class, 'price']);
 }); 

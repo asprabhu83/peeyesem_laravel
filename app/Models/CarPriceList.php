@@ -13,13 +13,18 @@ class CarPriceList extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['features_variant_id', 'car_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'car_id',
+        'features_variant_id',
         'car_fuel_type',
         'car_price'
     ];
     public function featuresModel() {
         return $this->belongsTo(CarFeatureVariantModel::class, 'features_model_id');
+    }
+    public function carPrice() {
+        return $this->belongsToMany(Car::class, 'car_id');
     }
 }

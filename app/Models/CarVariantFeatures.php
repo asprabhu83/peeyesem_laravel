@@ -9,13 +9,14 @@ class CarFeatureVariantFeatures extends Model
 {
     use HasFactory;
 
-    protected $table = 'car_feature_variant_features';
+    protected $table = 'car_variant_features';
 
     protected $primary = 'id';
 
-    protected $guarded = ['features_model_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'features_model_id',
         'variant_feature_type',
         'variant_feature_value'
     ];

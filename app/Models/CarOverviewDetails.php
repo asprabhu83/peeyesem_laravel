@@ -13,9 +13,10 @@ class CarOverviewDetails extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['overview_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'overview_id',
         'car_power',
         'car_transmission',
         'car_mileage',

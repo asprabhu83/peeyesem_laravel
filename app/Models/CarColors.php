@@ -13,9 +13,10 @@ class CarColors extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['car_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'car_id',
         'color_code',
         'color_title',
         'color_image',

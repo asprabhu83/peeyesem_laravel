@@ -13,15 +13,19 @@ class CarFeatureVariantModel extends Model
 
     protected $primary = 'id';
 
-    protected $guarded = ['features_variant_id'];
+    protected $guarded = [];
 
     protected $fillable = [
+        'features_variant_id',
         'feature_type',
     ];
     public function modelVariants() {
         return $this->belongsTo(CarFeatureVariant::class, 'features_variant_id');
     }
     public function modelFeatures() {
-        return $this->hasMany(CarFeatureVariantFeatures::class, 'features_model_id');
+        return $this->hasMany(CarVariantFeatures::class, 'features_model_id');
+    }
+    public function variantPrice() {
+        return $this->hasOne(CarPriceList::class, 'features_model_id');
     }
 }
