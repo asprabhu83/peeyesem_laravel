@@ -19,38 +19,38 @@ use App\Models\CarPriceList;
 class CarController extends Controller
 {
     public function car_detail(Request $request) {
-        $data = $request->validate([
+        $data = $this->validate($request, [
             'car_title'=>'required',
-            'car_image'=>'required',
+            'car_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $filename = $request->car_image->getClientOriginalName();
+        $location = $request->car_image->move(public_path('images'), $filename);
 
-        // if($request->get('car_image') & $request->get('overview_image'))
-        // {
-        //    $car_name = $request->get('car_image');
-        //    $over_name = $request->get('overview_image');
-        //    $car_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
-        //    \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
-        //    $over_image = time().'.' . explode('/', explode(':', substr($over_name, 0, strpos($over_name, ';')))[1])[1];
-        //    \Image::make($request->get('car_image'))->save(public_path('images/').$over_image);
-        // }
-
-
-        $res = Car::create($data);
+        $res = new Car;
+        $res->car_title = $request->car_title;
+        $res->car_image = $filename;
         return response($res); 
     }
 
     public function overview(Request $request) {
-        $data = $request->validate([
+        $data = $this->validate($request, [
             'car_id'=>'required',
             'car_description'=>'required',
-            'overview_image'=>'required',
+            'overview_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $res = CarOverview::create($data);
+        $res = new CaroverView;
+        $filename = $request->overview_image->getClientOriginalName();
+        $location = $request->overview_image->move(public_path('images'), $filename);
+       
+        $res->car_id = $request->car_id;
+        $res->car_description =$request->car_description;
+        $res->overview_image = $filename;
+        $res->save();
         return response($res);
     }
 
     public function overview_details(Request $request) {
-        $data = $request->validate([
+        $data = $request->validate($request, [
             'overview_id'=>'required',
             'car_power'=>'required|numeric',
             'car_transmission'=>'required',
@@ -61,7 +61,7 @@ class CarController extends Controller
     }
 
     public function highlight(Request $request) {
-        $data = $request->validate([
+        $data = $request->validate($request, [
             'car_id'=>'required',
             'highlight_title'=>'required',
         ]);
@@ -70,27 +70,46 @@ class CarController extends Controller
     }
 
     public function highlightPost(Request $request) {
-        $data = $request->validate([
+        $data = $this->validate($request, [
             'highlight_id'=>'required',
             'post_title'=>'required',
             'post_description'=>'required',
             'post_image'=>'required', 
         ]);
-        $res = CarHighlightPost::create($data);
+        $res = new CarHighlightPost;
+        $filename = $request->post_image->getClientOriginalName();
+        $location = $request->post_image->move(public_path('images'), $filename);
+
+        $res->highlight_id = $request->highlight_id;
+        $res->post_title = $request->post_title;
+        $res->post_description = $request->post_description;
+        $res->post_image = $filename;
+        $res->save();
         return response($res);
     }
 
     public function gallery(Request $request) {
-        $data = $request->validate([
+        $data = $request->validate($request, [
             'car_id'=>'required',
-            'gallery_image'=>'required',
+            'gallery_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $res = CarGallery::create($data);
+        $imgNames = [];
+        foreach ($request->file('gallery_image') as $file) {
+            $filename = $file->getClientOriginalName();
+            $location = $file->move(public_path('gallery'), $filename);
+            array_push($imgNames, $filename);
+        }
+        $names = implode(",", $imgNames);
+        echo $names;
+        // $res = new CarGallery;
+        // $res->car_id = $request->car_id;
+        // $res->gallery_image = $names;
+        // $res->save();
         return response($res);
     }
 
     public function videoLink(Request $request) {
-        $data = $request->validate([
+        $data = $request->validate($request, [
             'car_id'=>'required',
             'youtube_link'=>'required', 
             'local_file_link'=>'required',
@@ -100,7 +119,7 @@ class CarController extends Controller
     }
 
     public function carColor(Request $request) {
-        $data = $request->validate([
+        $data = $this->validate($request, [
             'car_id'=>'required',
             'color_code'=>'required',
             'color_title'=>'required', 
@@ -111,7 +130,7 @@ class CarController extends Controller
     }
 
     public function specs(Request $request) {
-        $data = $request->validate([
+        $data = $request->validate($request, [
             'car_id'=>'required',
             'spec_type'=>'required',
             'spec_model'=>'required',
@@ -123,7 +142,7 @@ class CarController extends Controller
     }
 
     public function variant(Request $request) {
-        $data = $request->validate([
+        $data = $request->validate($request, [
             'car_id'=>'required',
             'feature_title'=>'required', 
             'feature_variant_title'=>'required',
@@ -133,8 +152,8 @@ class CarController extends Controller
     }
 
     public function featureModel(Request $request) {
-        $data = $request->validate([
-            'features_model_id'=>'required',
+        $data = $request->validate($request, [
+            'features_variant_id'=>'required',
             'feature_type'=>'required',
         ]);
         $res = CarFeatureVariantModel::create($data);
@@ -142,7 +161,7 @@ class CarController extends Controller
     }
 
     public function variantFeature(Request $request) {
-        $data = $request->validate([
+        $data = $request->validate($request, [
             'features_model_id'=>'required',
             'variant_feature_type'=>'required',
             'variant_feature_value'=>'required',
@@ -152,11 +171,11 @@ class CarController extends Controller
     }
 
     public function price(Request $request) {
-        $data = $request->validate([
-            'car_id',
-            'features_variant_id',
-            'car_fuel_type',
-            'car_price'
+        $data = $this->validate($request, [
+            'car_id'=>'required',
+            'features_variant_id'=>'required',
+            'car_fuel_type'=>'required',
+            'car_price'=>'required'
         ]);
         $res = CarPriceList::create($data);
         return response($res);        

@@ -65,18 +65,19 @@ Route::group(['prefix' => 'userrole'], function()
 
 //add cars table
 
-Route::group(['prefix' => 'cars'], function()  
+Route::group(['prefix' => 'store'], function()  
 {  
-    Route::post('/post/car', [CarController::class, 'car_detail']);
-    Route::post('/post/overview_details', [CarController::class, 'overview_details']);
-    Route::post('/post/highlight', [CarController::class, 'highlight']);
-    Route::post('/post/highlight_post', [CarController::class, 'highlightPost']);
-    Route::post('/post/gallery', [CarController::class, 'gallery']);
-    Route::post('/post/videolink', [CarController::class, 'videoLink']);
-    Route::post('/post/carcolor', [CarController::class, 'carColor']);
-    Route::post('/post/specs', [CarController::class, 'specs']);
-    Route::post('/post/variant', [CarController::class, 'variant']);
-    Route::post('/post/feature_model', [CarController::class, 'featureModel']);
-    Route::post('/post/variant_feature', [CarController::class, 'variantFeature']);
-    Route::post('/post/pricelist', [CarController::class, 'price']);
+    Route::post('/car', [CarController::class, 'car_detail']);
+    Route::post('/overview', [CarController::class, 'overview']);
+    Route::post('/overview_details', [CarController::class, 'overview_details']);
+    Route::post('/highlight', [CarController::class, 'highlight']);
+    Route::post('/highlight_post', [CarController::class, 'highlightPost']);
+    Route::post('/gallery', [CarController::class, 'gallery']);
+    Route::post('/videolink', [CarController::class, 'videoLink']);
+    Route::post('/carcolor', [CarController::class, 'carColor']);
+    Route::post('/specs', [CarController::class, 'specs']);
+    Route::post('/variant', [CarController::class, 'variant']);
+    Route::post('/feature_model', [CarController::class, 'featureModel']);
+    Route::post('/variant_feature', [CarController::class, 'variantFeature']);
+    Route::post('/pricelist', [CarController::class, 'price']);
 }); 
