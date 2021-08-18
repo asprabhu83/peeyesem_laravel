@@ -83,6 +83,7 @@ Route::group(['prefix' => 'store'], function()
 });
 
 Route::get('car/types', [CarController::class, 'car_type']);
+Route::get('cars/index', [CarController::class, 'index']);
 
 Route::group(['prefix' => 'show'], function()  
 {

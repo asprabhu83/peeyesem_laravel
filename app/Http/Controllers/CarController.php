@@ -26,7 +26,7 @@ class CarController extends Controller
     }
     public function car_detail(Request $request) {
         $data = $request->validate([
-            'car_title'=>'required'
+            'car_title'=>'required',
         ]);
         // $filename = $request->car_image->getClientOriginalName();
         // $location = $request->car_image->move(public_path('images'), $filename);
@@ -48,7 +48,7 @@ class CarController extends Controller
     public function overview(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
-            'car_description'=>'required'
+            'car_description'=>'required',
         ]);
         $res = new CaroverView;
         // $filename = $request->overview_image->getClientOriginalName();
@@ -59,7 +59,7 @@ class CarController extends Controller
            $overview_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
            \Image::make($request->get('overview_image'))->save(public_path('images/').$overview_image);
         }
-       
+
         $res->car_id = $request->car_id;
         $res->car_description = $request->car_description;
         $res->overview_image = url('public/images').'/'.$overview_image;
@@ -96,7 +96,6 @@ class CarController extends Controller
         $res = new CarHighlightPost;
         // $filename = $request->post_image->getClientOriginalName();
         // $location = $request->post_image->move(public_path('images'), $filename);
-
         if($request->get('post_image'))
         {
            $car_name = $request->get('post_image');
@@ -114,11 +113,10 @@ class CarController extends Controller
 
     public function gallery(Request $request) {
         $data = $request->validate([
-            'car_id'=>'required'
+            'car_id'=>'required',
         ]);
         // $filename = $request->gallery_image->getClientOriginalName();
         // $location = $request->gallery_image->move(public_path('gallery'), $filename);
-
         if($request->get('gallery_image'))
         {
            $car_name = $request->get('gallery_image');
@@ -150,26 +148,17 @@ class CarController extends Controller
         ]);
         // $filename = $request->color_image->getClientOriginalName();
         // $location = $request->color_image->move(public_path('gallery'), $filename);
-
         if($request->get('color_image'))
         {
            $car_name = $request->get('color_image');
            $color_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
            \Image::make($request->get('color_image'))->save(public_path('images/').$color_image);
         }
-
-<<<<<<< HEAD
         $res = new CarColors;
         $res->car_id = $request->car_id;
         $res->color_code = $request->color_code;
         $res->color_title = $request->color_title;
-        $res->color_image = $filename;
-=======
-        $res =new CarColors;
-        $res->car_id = $request->car_id;
-        $res->color_code = $request->color_code;
         $res->color_image = url('public/images').'/'.$color_image;
->>>>>>> b1b9d496e5a749a34c9032bf79029222f0ee0a72
         $res->save();
         return response($res);
     }
