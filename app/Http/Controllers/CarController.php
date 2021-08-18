@@ -26,6 +26,7 @@ class CarController extends Controller
     }
     public function car_detail(Request $request) {
         $data = $request->validate([
+            'car_type_id'=>'required',
             'car_title'=>'required',
         ]);
         // $filename = $request->car_image->getClientOriginalName();
