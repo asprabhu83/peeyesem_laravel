@@ -34,7 +34,7 @@ class CarController extends Controller
 
         $res = new Car;
         $res->car_title = $request->car_title;
-        $res->car_image = $car_image;
+        $res->car_image = url('public/images').'/'.$car_image;
         $res->save();
         return response($res); 
     }
@@ -56,7 +56,7 @@ class CarController extends Controller
        
         $res->car_id = $request->car_id;
         $res->car_description = $request->car_description;
-        $res->overview_image = $overview_image;
+        $res->overview_image = url('public/images').'/'.$overview_image;
         $res->save();
         return response($res);
     }
@@ -101,7 +101,7 @@ class CarController extends Controller
         $res->highlight_id = $request->highlight_id;
         $res->post_title = $request->post_title;
         $res->post_description = $request->post_description;
-        $res->post_image = $post_image;
+        $res->post_image = url('public/images').'/'.$post_image;
         $res->save();
         return response($res);
     }
@@ -122,7 +122,7 @@ class CarController extends Controller
 
         $res = new CarGallery;
         $res->car_id = $request->car_id;
-        $res->gallery_image = $gallery_image;
+        $res->gallery_image = url('public/images').'/'.$gallery_image;
         $res->save();
         return response($res);
     }
@@ -156,7 +156,7 @@ class CarController extends Controller
         $res =new CarColors;
         $res->car_id = $request->car_id;
         $res->color_code = $request->color_code;
-        $res->color_image = $color_image;
+        $res->color_image = url('public/images').'/'.$color_image;
         $res->save();
         return response($res);
     }
