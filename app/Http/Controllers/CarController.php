@@ -40,6 +40,7 @@ class CarController extends Controller
         }
 
         $res = new Car;
+        $res->car_type_id = $request->car_type_id;
         $res->car_title = $request->car_title;
         $res->car_image = url('public/images').'/'.$car_image;
         $res->save();
@@ -218,7 +219,8 @@ class CarController extends Controller
 
      public function index(){
 
-        $cars = Car::all();
+        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')
+        ->get(['cars.id','cars.car_title','car_types.car_type']);
         $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
             ->get('car_overviews.*');
         $car_overview_details= CarOverview::join(
@@ -245,15 +247,22 @@ class CarController extends Controller
             '=', 'car_feature_variants.id'
         )->get('car_feature_variant_models.*');
         $varient_feature = CarFeatureVariantModel::join(
-            'car_feature_variant_features', 'car_feature_variant_features.features_model_id',
+            'car_variant_features', 'car_variant_features.features_model_id',
             '=', 'car_feature_variant_models.id'
-        )->get('car_feature_variant_features.*');
+        )->get('car_variant_features.*');
+
+        $price = Car::join(
+            'car_feature_variants', 'car_feature_variants.car_id', '=',
+            'cars.id'
+        )->join('car_price_lists', 'car_price_lists.features_variant_id', '=',
+            'car_feature_variants.id'
+        )->get('car_price_lists.*');
 
         return response(['cars' => $cars, 'car_overview' =>$car_overview,
             'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
             'highlight_post'=>$highlight_post, 'gallery'=>$gallery, 'video'=>$video,
             'car_color'=>$car_color, 'car_specs'=>$car_specs, 'feature_variant'=>$feature_variant,
-            'feature_model'=>$feature_model, 'varient_feature'=>$varient_feature
+            'feature_model'=>$feature_model, 'varient_feature' => $varient_feature, 'price' => $price
         ]);
     }
 

@@ -85,6 +85,8 @@ Route::group(['prefix' => 'store'], function()
 Route::get('car/types', [CarController::class, 'car_type']);
 Route::get('cars/index', [CarController::class, 'index']);
 
+Route::delete('cars/delete/{id}', [CarController::class, 'delete']);
+
 Route::group(['prefix' => 'show'], function()  
 {
     Route::get('/car/{id}', [CarController::class, 'show']);
