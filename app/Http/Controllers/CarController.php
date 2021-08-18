@@ -26,15 +26,21 @@ class CarController extends Controller
     }
     public function car_detail(Request $request) {
         $data = $request->validate([
-            'car_title'=>'required',
-            'car_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'car_title'=>'required'
         ]);
-        $filename = $request->car_image->getClientOriginalName();
-        $location = $request->car_image->move(public_path('images'), $filename);
+        // $filename = $request->car_image->getClientOriginalName();
+        // $location = $request->car_image->move(public_path('images'), $filename);
+
+        if($request->get('car_image'))
+        {
+           $car_name = $request->get('car_image');
+           $car_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
+        }
 
         $res = new Car;
         $res->car_title = $request->car_title;
-        $res->car_image = $filename;
+        $res->car_image = url('public/images').'/'.$car_image;
         $res->save();
         return response($res); 
     }
@@ -42,16 +48,21 @@ class CarController extends Controller
     public function overview(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
-            'car_description'=>'required',
-            'overview_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'car_description'=>'required'
         ]);
         $res = new CaroverView;
-        $filename = $request->overview_image->getClientOriginalName();
-        $location = $request->overview_image->move(public_path('images'), $filename);
+        // $filename = $request->overview_image->getClientOriginalName();
+        // $location = $request->overview_image->move(public_path('images'), $filename);
+        if($request->get('overview_image'))
+        {
+           $car_name = $request->get('overview_image');
+           $overview_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('overview_image'))->save(public_path('images/').$overview_image);
+        }
        
         $res->car_id = $request->car_id;
         $res->car_description = $request->car_description;
-        $res->overview_image = $filename;
+        $res->overview_image = url('public/images').'/'.$overview_image;
         $res->save();
         return response($res);
     }
@@ -81,31 +92,43 @@ class CarController extends Controller
             'highlight_id'=>'required',
             'post_title'=>'required',
             'post_description'=>'required',
-            'post_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
         ]);
         $res = new CarHighlightPost;
-        $filename = $request->post_image->getClientOriginalName();
-        $location = $request->post_image->move(public_path('images'), $filename);
+        // $filename = $request->post_image->getClientOriginalName();
+        // $location = $request->post_image->move(public_path('images'), $filename);
+
+        if($request->get('post_image'))
+        {
+           $car_name = $request->get('post_image');
+           $post_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('post_image'))->save(public_path('images/').$post_image);
+        }
 
         $res->highlight_id = $request->highlight_id;
         $res->post_title = $request->post_title;
         $res->post_description = $request->post_description;
-        $res->post_image = $filename;
+        $res->post_image = url('public/images').'/'.$post_image;
         $res->save();
         return response($res);
     }
 
     public function gallery(Request $request) {
         $data = $request->validate([
-            'car_id'=>'required',
-            'gallery_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'car_id'=>'required'
         ]);
-        $filename = $request->gallery_image->getClientOriginalName();
-        $location = $request->gallery_image->move(public_path('gallery'), $filename);
+        // $filename = $request->gallery_image->getClientOriginalName();
+        // $location = $request->gallery_image->move(public_path('gallery'), $filename);
+
+        if($request->get('gallery_image'))
+        {
+           $car_name = $request->get('gallery_image');
+           $gallery_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('gallery_image'))->save(public_path('images/').$gallery_image);
+        }
 
         $res = new CarGallery;
         $res->car_id = $request->car_id;
-        $res->gallery_image = $filename;
+        $res->gallery_image = url('public/images').'/'.$gallery_image;
         $res->save();
         return response($res);
     }
@@ -124,16 +147,29 @@ class CarController extends Controller
             'car_id'=>'required',
             'color_code'=>'required',
             'color_title'=>'required', 
-            'color_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $filename = $request->color_image->getClientOriginalName();
-        $location = $request->color_image->move(public_path('gallery'), $filename);
+        // $filename = $request->color_image->getClientOriginalName();
+        // $location = $request->color_image->move(public_path('gallery'), $filename);
 
+        if($request->get('color_image'))
+        {
+           $car_name = $request->get('color_image');
+           $color_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('color_image'))->save(public_path('images/').$color_image);
+        }
+
+<<<<<<< HEAD
         $res = new CarColors;
         $res->car_id = $request->car_id;
         $res->color_code = $request->color_code;
         $res->color_title = $request->color_title;
         $res->color_image = $filename;
+=======
+        $res =new CarColors;
+        $res->car_id = $request->car_id;
+        $res->color_code = $request->color_code;
+        $res->color_image = url('public/images').'/'.$color_image;
+>>>>>>> b1b9d496e5a749a34c9032bf79029222f0ee0a72
         $res->save();
         return response($res);
     }
