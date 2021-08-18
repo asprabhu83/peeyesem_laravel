@@ -28,6 +28,7 @@ class CarController extends Controller
         $data = $request->validate([
             'car_type_id'=>'required',
             'car_title'=>'required',
+            'car_image',
         ]);
         // $filename = $request->car_image->getClientOriginalName();
         // $location = $request->car_image->move(public_path('images'), $filename);
@@ -35,11 +36,13 @@ class CarController extends Controller
         if($request->get('car_image'))
         {
            $car_name = $request->get('car_image');
-           $car_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
+           $car_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
            \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
         }
 
         $res = new Car;
+        $res->car_type_id = $request->car_type_id;
         $res->car_title = $request->car_title;
         $res->car_image = url('public/images').'/'.$car_image;
         $res->save();
@@ -57,8 +60,10 @@ class CarController extends Controller
         if($request->get('overview_image'))
         {
            $car_name = $request->get('overview_image');
-           $overview_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
-           \Image::make($request->get('overview_image'))->save(public_path('images/').$overview_image);
+           $overview_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+            strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('overview_image'))->save(public_path(
+               'images/').$overview_image);
         }
 
         $res->car_id = $request->car_id;
@@ -100,8 +105,10 @@ class CarController extends Controller
         if($request->get('post_image'))
         {
            $car_name = $request->get('post_image');
-           $post_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
-           \Image::make($request->get('post_image'))->save(public_path('images/').$post_image);
+           $post_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('post_image'))->save(public_path(
+               'images/').$post_image);
         }
 
         $res->highlight_id = $request->highlight_id;
@@ -121,8 +128,10 @@ class CarController extends Controller
         if($request->get('gallery_image'))
         {
            $car_name = $request->get('gallery_image');
-           $gallery_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
-           \Image::make($request->get('gallery_image'))->save(public_path('images/').$gallery_image);
+           $gallery_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('gallery_image'))->save(public_path(
+               'images/').$gallery_image);
         }
 
         $res = new CarGallery;
@@ -152,8 +161,10 @@ class CarController extends Controller
         if($request->get('color_image'))
         {
            $car_name = $request->get('color_image');
-           $color_image = time().'.' . explode('/', explode(':', substr($car_name, 0, strpos($car_name, ';')))[1])[1];
-           \Image::make($request->get('color_image'))->save(public_path('images/').$color_image);
+           $color_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('color_image'))->save(public_path(
+               'images/').$color_image);
         }
         $res = new CarColors;
         $res->car_id = $request->car_id;
@@ -218,7 +229,8 @@ class CarController extends Controller
 
      public function index(){
 
-        $cars = Car::all();
+        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')
+        ->get(['cars.id','cars.car_title','car_types.car_type']);
         $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
             ->get('car_overviews.*');
         $car_overview_details= CarOverview::join(
@@ -226,8 +238,8 @@ class CarController extends Controller
         )->get('car_overview_details.*');
         $car_highlight = Car::join('car_highlights', 'car_highlights.car_id', '=', 'cars.id')
             ->get('car_highlights.*');
-        $highlight_post = CarHighlight::join('car_highlight_posts','car_highlight_posts.highlight_id',
-            '=', 'car_highlights.id')
+        $highlight_post = CarHighlight::join('car_highlight_posts',
+            'car_highlight_posts.highlight_id','=', 'car_highlights.id')
             ->get('car_highlight_posts.*');
         $gallery = Car::join('car_galleries', 'car_galleries.car_id', '=', 'cars.id')
             ->get('car_galleries.*');
@@ -245,15 +257,22 @@ class CarController extends Controller
             '=', 'car_feature_variants.id'
         )->get('car_feature_variant_models.*');
         $varient_feature = CarFeatureVariantModel::join(
-            'car_feature_variant_features', 'car_feature_variant_features.features_model_id',
+            'car_variant_features', 'car_variant_features.features_model_id',
             '=', 'car_feature_variant_models.id'
-        )->get('car_feature_variant_features.*');
+        )->get('car_variant_features.*');
+        $price = Car::join(
+            'car_feature_variants', 'car_feature_variants.car_id', '=',
+            'cars.id'
+        )->join('car_price_lists', 'car_price_lists.features_variant_id', '=',
+            'car_feature_variants.id'
+        )->get('car_price_lists.*');
 
         return response(['cars' => $cars, 'car_overview' =>$car_overview,
             'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
             'highlight_post'=>$highlight_post, 'gallery'=>$gallery, 'video'=>$video,
-            'car_color'=>$car_color, 'car_specs'=>$car_specs, 'feature_variant'=>$feature_variant,
-            'feature_model'=>$feature_model, 'varient_feature'=>$varient_feature
+            'car_color'=>$car_color, 'car_specs'=>$car_specs, 
+            'feature_variant'=>$feature_variant,'feature_model'=>$feature_model, 
+            'varient_feature'=>$varient_feature,'price'=>$price
         ]);
     }
 
@@ -266,11 +285,13 @@ class CarController extends Controller
         })->get();
 
         $overview_key = $car_overview[0]['id'];
-        $overview_details= CarOverviewDetails::whereHas('car_overviews', function($q) use($overview_key){
-            $q->where('overview_id', '=', $overview_key);
-        })->get();
+        $overview_details= CarOverviewDetails::whereHas('car_overviews', 
+            function($q) use($overview_key){
+                $q->where('overview_id', '=', $overview_key);
+            })->get();
 
-        return response(['car'=>$cars ,'overview'=>$car_overview, 'over_details'=>$overview_details]);
+        return response(['car'=>$cars ,'overview'=>$car_overview, 
+            'over_details'=>$overview_details]);
     }
 
     

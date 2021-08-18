@@ -20,6 +20,12 @@ class CreateCarPriceListsTable extends Migration
             $table->string('car_fuel_type');
             $table->string('car_price');
             $table->timestamps();
+            $table->foreign('features_variant_id')
+                ->references('id')->on('car_feature_variants')
+                -onDelete('cascade');
+            $table->foreign('ccar_id')
+                ->references('id')->on('cars')
+                -onDelete('cascade');
         });
     }
 

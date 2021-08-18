@@ -35,7 +35,6 @@ Route::group(['prefix' => 'users'], function()
     Route::delete('/delete/{id}', 'UserController@delete');
 
     Route::middleware('auth:api')->get('/currentUser','UserController@currentUser');
-
     Route::middleware('auth:api')->get('/logout','UserController@logout');
 
 }); 
