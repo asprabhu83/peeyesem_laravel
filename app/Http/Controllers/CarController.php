@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CarType;
 use App\Models\Car;
 use App\Models\CarOverview;
 use App\Models\CarOverviewDetails;
@@ -18,6 +19,11 @@ use App\Models\CarVariantFeatures;
 use App\Models\CarPriceList;
 class CarController extends Controller
 {
+    public function car_type(Request $request) {
+        $type = CarType::all();
+
+        return response (['types'=>$type]);
+    }
     public function car_detail(Request $request) {
         $data = $request->validate([
             'car_title'=>'required',
@@ -108,7 +114,6 @@ class CarController extends Controller
         $data = $request->validate([
             'car_id'=>'required',
             'youtube_link'=>'required', 
-            'local_file_link'=>'required',
         ]);
         $res = CarVideo::create($data);
         return response($res);
@@ -124,7 +129,10 @@ class CarController extends Controller
         $filename = $request->color_image->getClientOriginalName();
         $location = $request->color_image->move(public_path('gallery'), $filename);
 
-        $res = CarColors::create($data);
+        $res = new CarColors;
+        $res->car_id = $request->car_id;
+        $res->color_code = $request->color_code;
+        $res->color_title = $request->color_title;
         $res->color_image = $filename;
         $res->save();
         return response($res);
@@ -225,15 +233,18 @@ class CarController extends Controller
 
     public function show($id){
         $cars=Car::find($id);
-        $fkey = $cars->id;
 
-        // $car_overview= Car::with('car_overviews')->where('car_overviews.car_id', '=', $fkey)
-        //     ->get();
+        $car_key = $cars->id;
+        $car_overview = CarOverview::whereHas('cars', function($q) use($car_key){
+            $q -> where('car_id', '=', $car_key);
+        })->get();
 
-        $car_overview = Car::join('car_overviews','car_overviews.car_id','=', $id)
-        ->get('car_overviews.*');
+        $overview_key = $car_overview[0]['id'];
+        $overview_details= CarOverviewDetails::whereHas('car_overviews', function($q) use($overview_key){
+            $q->where('overview_id', '=', $overview_key);
+        })->get();
 
-        return response(['car'=>$cars,'overview'=>$car_overview]);
+        return response(['car'=>$cars ,'overview'=>$car_overview, 'over_details'=>$overview_details]);
     }
 
     

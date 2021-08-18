@@ -14,10 +14,14 @@ class Car extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'car_type_id',
         'car_title',
         'car_image'
     ];
 
+    public function carType() {
+        return $this->belongsTo(CarType::class, 'car_type_id');
+    }
     public function carOverviews() {
         return $this->hasOne(CarOverview::class, 'car_id');
     }

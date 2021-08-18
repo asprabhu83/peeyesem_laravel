@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarVideosTable extends Migration
+class CreateCarTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateCarVideosTable extends Migration
      */
     public function up()
     {
-        Schema::create('car_videos', function (Blueprint $table) {
+        Schema::create('car_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('car_id');
-            $table->string('youtube_link');
-            $table->string('local_file_link')->nullable();
+            $table->string('car_type');
             $table->timestamps();
         });
-        Schema::table('car_videos', function (Blueprint $table) {
-            $table->foreign('car_id')
-                ->references('id')->on('cars')
+        Schema::table('cars', function (Blueprint $table) {
+            $table->foreign('car_type_id')
+                ->references('id')->on('car_types')
                 ->onDelete('cascade');
         });
     }
@@ -34,6 +32,6 @@ class CreateCarVideosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('car_videos');
+        Schema::dropIfExists('car_types');
     }
 }

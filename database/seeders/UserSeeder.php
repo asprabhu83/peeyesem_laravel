@@ -27,5 +27,13 @@ class UserSeeder extends Seeder
         ];
 
         DB::table('permissions')->insert($permissions);
+
+        $car_types =[
+            ['id'=>1, 'car_type'=>'SUV'],
+            ['id'=>2, 'car_type'=>'SEDAN'],
+            ['id'=>3, 'car_type'=>'HATCHBACK'],
+            ['id'=>4, 'car_type'=>'COMPACT-SUV'],
+        ];
+        DB::table('car_types')->insert($car_types);
     }
 }

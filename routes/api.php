@@ -80,4 +80,11 @@ Route::group(['prefix' => 'store'], function()
     Route::post('/feature_model', [CarController::class, 'featureModel']);
     Route::post('/variant_feature', [CarController::class, 'variantFeature']);
     Route::post('/pricelist', [CarController::class, 'price']);
-}); 
+});
+
+Route::get('car/types', [CarController::class, 'car_type']);
+
+Route::group(['prefix' => 'show'], function()  
+{
+    Route::get('/car/{id}', [CarController::class, 'show']);
+});
