@@ -21,7 +21,4 @@ class CarColors extends Model
         'color_title',
         'color_image',
     ];
-    public function colorCars() {
-        return $this->belongsTo(Car::class, 'car_id');
-    }
 }

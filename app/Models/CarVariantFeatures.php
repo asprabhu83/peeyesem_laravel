@@ -20,7 +20,4 @@ class CarVariantFeatures extends Model
         'variant_feature_type',
         'variant_feature_value'
     ];
-    public function featuresModel() {
-        return $this->belongsTo(CarFeatureVariantModel::class, 'features_model_id');
-    }
 }

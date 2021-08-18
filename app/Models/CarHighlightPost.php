@@ -21,7 +21,4 @@ class CarHighlightPost extends Model
         'post_description',
         'post_image'
     ];
-    public function highlights() {
-        return $this->belongsTo(CarHighlight::class, 'highlight_id');
-    }
 }

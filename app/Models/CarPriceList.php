@@ -21,10 +21,4 @@ class CarPriceList extends Model
         'car_fuel_type',
         'car_price'
     ];
-    public function featuresModel() {
-        return $this->belongsTo(CarFeatureVariantModel::class, 'features_model_id');
-    }
-    public function carPrice() {
-        return $this->belongsToMany(Car::class, 'car_id');
-    }
 }

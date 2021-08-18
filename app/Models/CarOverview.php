@@ -20,11 +20,7 @@ class CarOverview extends Model
         'car_description',
         'overview_image',
     ];
-
-    public function cars() {
-        return $this->belongsTo(Car::class, 'car_id');
-    }
-    public function overviewDetails() {
-        return $this->hasOne(CarOverviewDetails::class, 'overview_id');
+    public function overviews() {
+        return $this->hasMany(CarOverviewDetails::class, 'overview_id');
     }
 }

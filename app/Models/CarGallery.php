@@ -19,7 +19,4 @@ class CarGallery extends Model
         'car_id',
         'gallery_image',
     ];
-    public function gallery() {
-        return $this->belongsTo(Car::class, 'car_id');
-    }
 }

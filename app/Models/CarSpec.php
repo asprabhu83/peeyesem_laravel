@@ -22,7 +22,4 @@ class CarSpec extends Model
         'spec_petrol',
         'spec_diesel',
     ];
-    public function specCars() {
-        return $this->belongsTo(Car::class, 'car_id');
-    }
 }

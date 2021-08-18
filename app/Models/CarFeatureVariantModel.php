@@ -19,13 +19,4 @@ class CarFeatureVariantModel extends Model
         'features_variant_id',
         'feature_type',
     ];
-    public function modelVariants() {
-        return $this->belongsTo(CarFeatureVariant::class, 'features_variant_id');
-    }
-    public function modelFeatures() {
-        return $this->hasMany(CarVariantFeatures::class, 'features_model_id');
-    }
-    public function variantPrice() {
-        return $this->hasOne(CarPriceList::class, 'features_model_id');
-    }
 }

@@ -20,7 +20,4 @@ class CarVideo extends Model
         'youtube_link',
         'local_file_link',
     ];
-    public function videoCars() {
-        return $this->belongsTo(Car::class, 'car_id');
-    }
 }

@@ -21,7 +21,5 @@ class CarOverviewDetails extends Model
         'car_transmission',
         'car_mileage',
     ];
-    public function overviews() {
-        return $this->belongsTo(CarOverview::class, 'overview_id');
-    }
+    
 }

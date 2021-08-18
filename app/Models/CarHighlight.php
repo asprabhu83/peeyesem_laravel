@@ -19,10 +19,7 @@ class CarHighlight extends Model
         'car_id',
         'highlight_title',
     ];
-    public function cars() {
-        return $this->belongsTo(Car::class, 'car_id');
-    }
-    public function highlightPostd() {
+    public function highlightPost() {
         return $this->hasMany(CarHighlightPost::class, 'highlight_id');
     }
 }
