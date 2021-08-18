@@ -260,10 +260,6 @@ class CarController extends Controller
             'car_variant_features', 'car_variant_features.features_model_id',
             '=', 'car_feature_variant_models.id'
         )->get('car_variant_features.*');
-<<<<<<< HEAD
-=======
-
->>>>>>> 7e80d1b5430f442ad345dbd209837a05593b2dbc
         $price = Car::join(
             'car_feature_variants', 'car_feature_variants.car_id', '=',
             'cars.id'
@@ -274,14 +270,8 @@ class CarController extends Controller
         return response(['cars' => $cars, 'car_overview' =>$car_overview,
             'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
             'highlight_post'=>$highlight_post, 'gallery'=>$gallery, 'video'=>$video,
-<<<<<<< HEAD
-            'car_color'=>$car_color, 'car_specs'=>$car_specs, 
-            'feature_variant'=>$feature_variant,'feature_model'=>$feature_model, 
-            'varient_feature'=>$varient_feature,'price'=>$price
-=======
             'car_color'=>$car_color, 'car_specs'=>$car_specs, 'feature_variant'=>$feature_variant,
             'feature_model'=>$feature_model, 'varient_feature' => $varient_feature, 'price' => $price
->>>>>>> 7e80d1b5430f442ad345dbd209837a05593b2dbc
         ]);
     }
 
