@@ -280,30 +280,32 @@ class CarController extends Controller
 
     public function show($id){
         $cars=Car::find($id);
-        $car_key = $cars->id;
-        $car_overview = Car::find($id)->carOverviews;
-        $overview_details= CarOverview::find($id)->overviews;
+        $car_overview = Car::findOrFail($id)->carOverviews;
+        $overview_id = $car_overview['id'];
+        $overview_details= CarOverview::findOrFail($overview_id)->overviews;
         $highlight = Car::find($id)->carHighlights;
-        $highlight_post = CarHighlight::find($id)->highlightPost;
+        $highlight_id = $highlight[0]['id'];
+        $highlight_post = CarHighlight::find($highlight_id)->highlightPost;
         $gallery = Car::find($id)->carGalleries;
         $videos = Car::find($id)->carVideos;
         $colors = Car::find($id)->carColors;
         $specs = Car::find($id)->carSpecs;
         $feature_variant = Car::find($id)->carFeatureVariant;
-        $feature_model = CarFeatureVariant::find($id)->featureModel;
-        $varient_feature = CarFeatureVariantModel::find($id)->modelFeatures;
+        $feature_id = $feature_variant[0]['id'];
+        $feature_model = CarFeatureVariant::find($feature_id)->featureModel;
+        $model_id = $feature_model[0]['id'];
+        $varient_feature = CarFeatureVariantModel::find($model_id)->variantFeatures;
         $price_id = $feature_variant[0]['id'];
         $price = CarFeatureVariant::find($price_id)->variantPrice;
 
-        return response()->json(['car'=>$cars , "overview"=>$car_overview, 
-        "overview_details"=>$overview_details, "highlight"=>$highlight, 
+        return response(['car'=>$cars , "overview"=>$car_overview, 
+        "overview_details"=>$overview_details, "highlight"=>$highlight,
         "highlight_post"=>$highlight_post, "gallery"=>$gallery, "videos"=>$videos,
         "colors"=>$colors, "specs"=>$specs, "feature_variant"=>$feature_variant,
         "feature_model"=>$feature_model, "varient_feature"=>$varient_feature, 
         "price"=>$price
         ]);
     }
-
     
     public function delete(Request $request, $id){
         $car = Car::findOrFail($id);

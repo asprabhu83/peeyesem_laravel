@@ -22,10 +22,10 @@ class CreateCarPriceListsTable extends Migration
             $table->timestamps();
             $table->foreign('features_variant_id')
                 ->references('id')->on('car_feature_variants')
-                -onDelete('cascade');
-            $table->foreign('ccar_id')
+                ->onDelete('cascade');
+            $table->foreign('car_id')
                 ->references('id')->on('cars')
-                -onDelete('cascade');
+                ->onDelete('cascade');
         });
     }
 
