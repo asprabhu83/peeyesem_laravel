@@ -19,4 +19,8 @@ class CarFeatureVariantModel extends Model
         'features_variant_id',
         'feature_type',
     ];
+
+    public function modelFeatures() {
+        return $this->hasMany(CarVariantFeatures::class, 'features_model_id');
+    }
 }

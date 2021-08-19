@@ -232,7 +232,6 @@ class CarController extends Controller
     }
 
      public function index(){
-
         $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')
         ->get(['cars.id','cars.car_title','car_types.car_type']);
         $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
@@ -260,16 +259,19 @@ class CarController extends Controller
             'car_feature_variant_models', 'car_feature_variant_models.features_variant_id', 
             '=', 'car_feature_variants.id'
         )->get('car_feature_variant_models.*');
-        $varient_feature = CarFeatureVariantModel::join(
-            'car_variant_features', 'car_variant_features.features_model_id',
-            '=', 'car_feature_variant_models.id'
-        )->get('car_variant_features.*');
+        // $varient_feature = CarFeatureVariantModel::join(
+        //     'car_variant_features', 'car_variant_features.features_model_id',
+        //     '=', 'car_feature_variant_models.id'
+        // )->get('car_variant_features.*');
         $price = Car::join(
             'car_feature_variants', 'car_feature_variants.car_id', '=',
             'cars.id'
         )->join('car_price_lists', 'car_price_lists.features_variant_id', '=',
             'car_feature_variants.id'
         )->get('car_price_lists.*');
+
+
+        $varient_feature = CarFeatureVariantModel::all()->modelFeatures;
 
         return response(['cars' => $cars, 'car_overview' =>$car_overview,
             'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
@@ -281,7 +283,6 @@ class CarController extends Controller
 
     public function show($id){
         $cars=Car::find($id);
-
         $car_key = $cars->id;
         $car_overview = Car::find($id)->carOverviews;
         $overview_details= CarOverview::find($id)->overviews;
@@ -293,14 +294,16 @@ class CarController extends Controller
         $specs = Car::find($id)->carSpecs;
         $feature_variant = Car::find($id)->carFeatureVariant;
         $feature_model = CarFeatureVariant::find($id)->featureModel;
-        // $varient_feature = CarFeatureVariantModel::find($id)->modelFeatures;
-        // $price = 
+        $varient_feature = CarFeatureVariantModel::find($id)->modelFeatures;
+        $price_id = $feature_variant[0]['id'];
+        $price = CarFeatureVariant::find($price_id)->variantPrice;
 
-        return response(['car'=>$cars , "overview"=>$car_overview, 
+        return response()->json(['car'=>$cars , "overview"=>$car_overview, 
         "overview_details"=>$overview_details, "highlight"=>$highlight, 
         "highlight_post"=>$highlight_post, "gallery"=>$gallery, "videos"=>$videos,
         "colors"=>$colors, "specs"=>$specs, "feature_variant"=>$feature_variant,
-        "feature_model"=>$feature_model,
+        "feature_model"=>$feature_model, "varient_feature"=>$varient_feature, 
+        "price"=>$price
         ]);
     }
 
