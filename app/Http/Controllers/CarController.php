@@ -271,7 +271,7 @@ class CarController extends Controller
         )->get('car_price_lists.*');
 
 
-        $varient_feature = CarFeatureVariantModel::all()->modelFeatures;
+        $varient_feature = CarFeatureVariantModel::all()->variantFeatures;
 
         return response(['cars' => $cars, 'car_overview' =>$car_overview,
             'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,

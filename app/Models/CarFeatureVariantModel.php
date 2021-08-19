@@ -20,7 +20,7 @@ class CarFeatureVariantModel extends Model
         'feature_type',
     ];
 
-    public function modelFeatures() {
+    public function variantFeatures() {
         return $this->hasMany(CarVariantFeatures::class, 'features_model_id');
     }
 }
