@@ -41,11 +41,11 @@ class CarController extends Controller
         //    \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
         // }
 
-        $res = new Car;
-        $res->car_type_id = $request->car_type_id;
-        $res->car_title = $request->car_title;
-        $res->car_image = url('public/images').'/'.$filename;
-        $res->save();
+        $res = Car::updateOrCreate(
+            ['car_title'=>request('car_title'), ],
+            ['car_type_id'=>request('car_type_id'), 
+            'car_image'=>url('public/images').'/'.$filename]
+        );
         return response($res); 
     }
 
@@ -55,7 +55,6 @@ class CarController extends Controller
             'car_description'=>'required',
             'overview_image'
         ]);
-        $res = new CaroverView;
         $filename = $request->overview_image->getClientOriginalName();
         $location = $request->overview_image->move(public_path('images'), $filename);
         // if($request->get('overview_image'))
@@ -66,11 +65,12 @@ class CarController extends Controller
         //    \Image::make($request->get('overview_image'))->save(public_path(
         //        'images/').$overview_image);
         // }
-
-        $res->car_id = $request->car_id;
-        $res->car_description = $request->car_description;
-        $res->overview_image = url('public/images').'/'.$filename;
-        $res->save();
+        
+        $res = CarOverview::updateOrCreate(
+            ['car_id'=>request('car_id'), ],
+            ['car_description'=>request('car_description'), 
+            'overview_image'=>url('public/images').'/'.$filename]
+        );
         return response($res);
     }
 
@@ -81,7 +81,11 @@ class CarController extends Controller
             'car_transmission'=>'required',
             'car_mileage'=>'required|numeric',
         ]);
-        $res = CarOverviewDetails::create($data);
+        $res = CarOverviewDetails::updateOrCreate(
+            ['overview_id'=>request('overview_id'), ],
+            ['car_power'=>request('car_power'), 'car_transmission'=>request('car_transmission'),
+            'car_mileage'=>request('car_mileage')]
+        );
         return response($res);
     }
 
@@ -90,7 +94,10 @@ class CarController extends Controller
             'car_id'=>'required',
             'highlight_title'=>'required',
         ]);
-        $res = CarHighlight::create($data);
+        $res = CarHighlight::updateOrCreate(
+            ['car_id'=>request('car_id'), ],
+            ['highlight_title'=>request('highlight_title')]
+        );
         return response($res);
     }
 
@@ -101,7 +108,7 @@ class CarController extends Controller
             'post_description'=>'required',
             'post_image'
         ]);
-        $res = new CarHighlightPost;
+        
         $filename = $request->post_image->getClientOriginalName();
         $location = $request->post_image->move(public_path('images'), $filename);
         // if($request->get('post_image'))
@@ -113,11 +120,11 @@ class CarController extends Controller
         //        'images/').$post_image);
         // }
 
-        $res->highlight_id = $request->highlight_id;
-        $res->post_title = $request->post_title;
-        $res->post_description = $request->post_description;
-        $res->post_image = url('public/images').'/'.$filename;
-        $res->save();
+        $res = CarHighlightPost::updateOrCreate(
+            ['highlight_id'=>request('highlight_id'), ],
+            ['post_title'=>request('post_title'), 'post_description'=>request('post_description'),
+            'post_image'=>url('public/images').'/'.$filename]
+        );
         return response($res);
     }
 
@@ -137,10 +144,10 @@ class CarController extends Controller
         //        'images/').$gallery_image);
         // }
 
-        $res = new CarGallery;
-        $res->car_id = $request->car_id;
-        $res->gallery_image = url('public/images').'/'.$filename;
-        $res->save();
+        $res = CarGallery::updateOrCreate(
+            ['car_id'=>request('car_id'), ],
+            ['gallery_image'=>url('public/images').'/'.$filename]
+        );
         return response($res);
     }
 
@@ -149,7 +156,10 @@ class CarController extends Controller
             'car_id'=>'required',
             'youtube_link'=>'required', 
         ]);
-        $res = CarVideo::create($data);
+        $res = CarVideo::updateOrCreate(
+            ['car_id'=>request('car_id'), ],
+            ['youtube_link'=>request('youtube_link')]
+        );
         return response($res);
     }
 
@@ -170,12 +180,11 @@ class CarController extends Controller
         //    \Image::make($request->get('color_image'))->save(public_path(
         //        'images/').$color_image);
         // }
-        $res = new CarColors;
-        $res->car_id = $request->car_id;
-        $res->color_code = $request->color_code;
-        $res->color_title = $request->color_title;
-        $res->color_image = url('public/images').'/'.$filename;
-        $res->save();
+        $res = CarColors::updateOrCreate(
+            ['car_id'=>request('car_id'), ],
+            ['color_code'=>request('color_code'), 'color_title'=>request('color_title'),
+            'color_image'=>url('public/images').'/'.$filename]
+        );
         return response($res);
     }
 
@@ -187,7 +196,11 @@ class CarController extends Controller
             'spec_petrol'=>'required', 
             'spec_diesel'=>'required',
         ]);
-        $res = CarSpec::create($data);
+        $res = CarSpec::updateOrCreate(
+            ['car_id'=>request('car_id'), ],
+            ['spec_type'=>request('spec_type'), 'spec_model'=>request('spec_model'),
+            'spec_petrol'=>request('spec_petrol'), 'spec_diesel'=>request('spec_diesel')]
+        );
         return response($res);
     }
 
@@ -197,7 +210,11 @@ class CarController extends Controller
             'feature_title'=>'required', 
             'feature_variant_title'=>'required',
         ]);
-        $res = CarFeatureVariant::create($data);
+        $res = CarFeatureVariant::updateOrCreate(
+            ['car_id'=>request('car_id'), ],
+            ['feature_title'=>request('feature_title'), 
+            'feature_variant_title'=>request('feature_variant_title'),]
+        );
         return response($res);
     }
 
@@ -206,7 +223,10 @@ class CarController extends Controller
             'features_variant_id'=>'required',
             'feature_type'=>'required',
         ]);
-        $res = CarFeatureVariantModel::create($data);
+        $res = CarFeatureVariantModel::updateOrCreate(
+            ['features_variant_id'=>request('features_variant_id'), ],
+            ['feature_type'=>request('feature_type'),]
+        );
         return response($res);        
     }
 
@@ -216,7 +236,11 @@ class CarController extends Controller
             'variant_feature_type'=>'required',
             'variant_feature_value'=>'required',
         ]);
-        $res = CarVariantFeatures::create($data);
+        $res = CarVariantFeatures::updateOrCreate(
+            ['features_model_id'=>request('features_model_id'), ],
+            ['variant_feature_type'=>request('variant_feature_type'),
+            'variant_feature_value'=>request('variant_feature_value')]
+        );
         return response($res);        
     }
 
@@ -227,7 +251,12 @@ class CarController extends Controller
             'car_fuel_type'=>'required',
             'car_price'=>'required'
         ]);
-        $res = CarPriceList::create($data);
+        $res = CarPriceList::updateOrCreate(
+            ['car_id'=>request('car_id'), 
+            'features_variant_id'=>request('features_variant_id'),],
+            ['car_fuel_type'=>request('car_fuel_type'),
+            'car_price'=>request('car_price')]
+        );
         return response($res);        
     }
 
@@ -281,29 +310,36 @@ class CarController extends Controller
     public function show($id){
         $cars=Car::find($id);
         $car_overview = Car::findOrFail($id)->carOverviews;
+
         $overview_id = $car_overview['id'];
         $overview_details= CarOverview::findOrFail($overview_id)->overviews;
+        
         $highlight = Car::find($id)->carHighlights;
+
         $highlight_id = $highlight[0]['id'];
         $highlight_post = CarHighlight::find($highlight_id)->highlightPost;
+
         $gallery = Car::find($id)->carGalleries;
         $videos = Car::find($id)->carVideos;
         $colors = Car::find($id)->carColors;
         $specs = Car::find($id)->carSpecs;
         $feature_variant = Car::find($id)->carFeatureVariant;
+
         $feature_id = $feature_variant[0]['id'];
         $feature_model = CarFeatureVariant::find($feature_id)->featureModel;
+
         $model_id = $feature_model[0]['id'];
         $varient_feature = CarFeatureVariantModel::find($model_id)->variantFeatures;
+
         $price_id = $feature_variant[0]['id'];
         $price = CarFeatureVariant::find($price_id)->variantPrice;
 
         return response(['car'=>$cars , "overview"=>$car_overview, 
-        "overview_details"=>$overview_details, "highlight"=>$highlight,
-        "highlight_post"=>$highlight_post, "gallery"=>$gallery, "videos"=>$videos,
-        "colors"=>$colors, "specs"=>$specs, "feature_variant"=>$feature_variant,
-        "feature_model"=>$feature_model, "varient_feature"=>$varient_feature, 
-        "price"=>$price
+            "overview_details"=>$overview_details, "highlight"=>$highlight,
+            "highlight_post"=>$highlight_post, "gallery"=>$gallery, "videos"=>$videos,
+            "colors"=>$colors, "specs"=>$specs, "feature_variant"=>$feature_variant,
+            "feature_model"=>$feature_model, "varient_feature"=>$varient_feature, 
+            "price"=>$price
         ]);
     }
     
