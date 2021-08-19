@@ -259,19 +259,16 @@ class CarController extends Controller
             'car_feature_variant_models', 'car_feature_variant_models.features_variant_id', 
             '=', 'car_feature_variants.id'
         )->get('car_feature_variant_models.*');
-        // $varient_feature = CarFeatureVariantModel::join(
-        //     'car_variant_features', 'car_variant_features.features_model_id',
-        //     '=', 'car_feature_variant_models.id'
-        // )->get('car_variant_features.*');
+        $varient_feature = CarFeatureVariantModel::join(
+            'car_variant_features', 'car_variant_features.features_model_id',
+            '=', 'car_feature_variant_models.id'
+        )->get('car_variant_features.*');
         $price = Car::join(
             'car_feature_variants', 'car_feature_variants.car_id', '=',
             'cars.id'
         )->join('car_price_lists', 'car_price_lists.features_variant_id', '=',
             'car_feature_variants.id'
         )->get('car_price_lists.*');
-
-
-        $varient_feature = CarFeatureVariantModel::all()->variantFeatures;
 
         return response(['cars' => $cars, 'car_overview' =>$car_overview,
             'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
