@@ -11,11 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/chunk-vendors.e222ddce.js', 'public/js')
-    .postCss('resources/css/chunk-vendors.d15afbfd.css', 'public/css', [
-        //
-    ])
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.js('resources/_nuxt/runtime.70.js', 'public/js')
+    .js('resources/_nuxt/vendors/app.71.js', 'public/js')
+    .js('resources/_nuxt/app.1.js', 'public/js')
+    // .postCss('resources/css/chunk-vendors.d15afbfd.css', 'public/css', [
+    //     //
+    // ])
+    // .postCss('resources/css/app.css', 'public/css', [
+    //     //
+    // ]);
