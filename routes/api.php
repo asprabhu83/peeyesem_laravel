@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ClassDetailsController;
 use App\Http\Controllers\AttributeDetailsController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\MenuController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -89,4 +90,15 @@ Route::delete('cars/delete/{id}', [CarController::class, 'delete']);
 Route::group(['prefix' => 'show'], function()  
 {
     Route::get('/car/{id}', [CarController::class, 'show']);
+});
+
+// page builder table
+
+Route::group(['prefix' => 'menu'], function ()
+{
+    Route::post('/title', [MenuController::class, 'menu_title']);
+    Route::post('/menu', [MenuController::class, 'menu_item']);
+    Route::post('/submenu', [MenuController::class, 'sub_menu']);
+    Route::get('/get-menu/{id}', [MenuController::class, 'get_menus']);
+    Route::get('/index', [MenuController::class, 'menu_index']);
 });

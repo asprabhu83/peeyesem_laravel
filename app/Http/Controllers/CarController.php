@@ -17,6 +17,7 @@ use App\Models\CarFeatureVariant;
 use App\Models\CarFeatureVariantModel;
 use App\Models\CarVariantFeatures;
 use App\Models\CarPriceList;
+
 class CarController extends Controller
 {
     public function car_type(Request $request) {
