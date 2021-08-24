@@ -99,6 +99,6 @@ Route::group(['prefix' => 'menu'], function ()
     Route::post('/title', [MenuController::class, 'menu_title']);
     Route::post('/menu', [MenuController::class, 'menu_item']);
     Route::post('/submenu', [MenuController::class, 'sub_menu']);
-    Route::get('/get-menu/{id}', [MenuController::class, 'get_menus']);
+    Route::get('/show/{id}', [MenuController::class, 'get_menus']);
     Route::get('/index', [MenuController::class, 'menu_index']);
 });
