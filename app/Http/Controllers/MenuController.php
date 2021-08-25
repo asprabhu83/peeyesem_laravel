@@ -40,7 +40,7 @@ class MenuController extends Controller
     }
 
     public function menu_index() {
-        $title = MenuTitle::all();
+        $title = MenuTitle::join('menu_items','menu_items.menu_title_id','=','menu_titles.id')->get('*');
         $menu = MenuItem::all();
         $submenu = SubMenu::all();
 
@@ -61,5 +61,5 @@ class MenuController extends Controller
         $menu->delete();
 
         return 204;
-    }
+    }    
 }
