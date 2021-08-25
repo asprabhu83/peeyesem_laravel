@@ -101,4 +101,5 @@ Route::group(['prefix' => 'menu'], function ()
     Route::post('/submenu', [MenuController::class, 'sub_menu']);
     Route::get('/show/{id}', [MenuController::class, 'get_menus']);
     Route::get('/index', [MenuController::class, 'menu_index']);
+    Route::delete('/delete/{id}', [MenuController::class, 'delete_menu']);
 });

@@ -55,4 +55,11 @@ class MenuController extends Controller
 
         return response(['title'=>$title, 'menu'=>$menu, 'submenu'=>$submenu]);
     }
+
+    public function delete_menu($id) {
+        $menu = MenuTitle::findOrFail($id);
+        $menu->delete();
+
+        return 204;
+    }
 }
