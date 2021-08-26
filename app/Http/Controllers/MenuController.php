@@ -40,7 +40,9 @@ class MenuController extends Controller
     }
 
     public function menu_index() {
-        return response (['menu'=>MenuTitle::with('menuTitles')->get()]);
+        $res = MenuTitle::with('menuTitles',
+            'menuTitles.subMenu')->get();
+        return response (['menu'=>$res]);
     }
 
     public function get_menus($id) {
