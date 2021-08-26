@@ -101,5 +101,7 @@ Route::group(['prefix' => 'menu'], function ()
     Route::get('/show/{id}', [MenuController::class, 'get_menus']);
     Route::get('/index', [MenuController::class, 'menu_index']);
     Route::delete('/delete/{id}', [MenuController::class, 'delete_menu']);
+    Route::delete('/delete/item/{id}', [MenuController::class, 'delete_item']);
+    Route::delete('/delete/submenu/{id}', [MenuController::class, 'delete_submenu']);
     Route::get('/menu/{id}', [MenuController::class, 'only_menu']);
 });

@@ -47,12 +47,16 @@ class MenuController extends Controller
     }
 
     public function get_menus($id) {
-        $title = MenuTitle::find($id);
-        $menu = MenuTitle::findOrFail($id)->menuTitles;
-        $menu_id = $menu[0]['id'];
-        $submenu = MenuItem::findOrFail($menu_id)->subMenu;
+        $title = MenuTitle::findOrFail($id)
+            ->with('menuTitles')
+            ->with('menuTitles.subMenu')
+            ->where('menu_titles.id', '=', $id)
+            ->get();
+        // $menu = MenuTitle::findOrFail($id)->menuTitles;
+        // $menu_id = $menu[0]['id'];
+        // $submenu = MenuItem::findOrFail($menu_id)->subMenu;
 
-        return response(['title'=>$title, 'menu'=>$menu, 'submenu'=>$submenu]);
+        return response(['title'=>$title,]);
     }
 
     public function delete_menu($id) {
@@ -61,6 +65,21 @@ class MenuController extends Controller
 
         return 204;
     }
+
+    public function delete_item($id) {
+        $item = MenuItem::findOrFail($id);
+        $item->delete();
+
+        return response(["Delete sucessful"]);
+    }
+
+    public function delete_submenu($id) {
+        $item = SubMenu::findOrFail($id);
+        $item -> delete();
+        
+        return response(["Delete sucessful"]);
+    }
+
     public function only_menu($id) {
         $menus = MenuTitle::findOrFail($id)->menuTitles;
         $res = [];
