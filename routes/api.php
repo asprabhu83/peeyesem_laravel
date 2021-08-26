@@ -84,7 +84,6 @@ Route::group(['prefix' => 'store'], function()
 
 Route::get('car/types', [CarController::class, 'car_type']);
 Route::get('cars/index', [CarController::class, 'index']);
-
 Route::delete('cars/delete/{id}', [CarController::class, 'delete']);
 
 Route::group(['prefix' => 'show'], function()  
@@ -102,4 +101,5 @@ Route::group(['prefix' => 'menu'], function ()
     Route::get('/show/{id}', [MenuController::class, 'get_menus']);
     Route::get('/index', [MenuController::class, 'menu_index']);
     Route::delete('/delete/{id}', [MenuController::class, 'delete_menu']);
+    Route::get('/menu/{id}', [MenuController::class, 'only_menu']);
 });
