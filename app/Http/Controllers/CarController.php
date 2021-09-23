@@ -31,21 +31,21 @@ class CarController extends Controller
             'car_title'=>'required',
             'car_image',
         ]);
-        $filename = $request->car_image->getClientOriginalName();
-        $location = $request->car_image->move(public_path('images'), $filename);
+        // $filename = $request->car_image->getClientOriginalName();
+        // $location = $request->car_image->move(public_path('images'), $filename);
 
-        // if($request->get('car_image'))
-        // {
-        //    $car_name = $request->get('car_image');
-        //    $car_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
-        //         strpos($car_name, ';')))[1])[1];
-        //    \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
-        // }
+        if($request->get('car_image'))
+        {
+           $car_name = $request->get('car_image');
+           $car_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
+        }
 
         $res = Car::updateOrCreate(
             ['car_title'=>request('car_title'), ],
             ['car_type_id'=>request('car_type_id'), 
-            'car_image'=>url('public/images').'/'.$filename]
+            'car_image'=>url('public/images').'/'.$car_image]
         );
         return response($res); 
     }
@@ -56,21 +56,21 @@ class CarController extends Controller
             'car_description'=>'required',
             'overview_image'
         ]);
-        $filename = $request->overview_image->getClientOriginalName();
-        $location = $request->overview_image->move(public_path('images'), $filename);
-        // if($request->get('overview_image'))
-        // {
-        //    $car_name = $request->get('overview_image');
-        //    $overview_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
-        //     strpos($car_name, ';')))[1])[1];
-        //    \Image::make($request->get('overview_image'))->save(public_path(
-        //        'images/').$overview_image);
-        // }
+        // $filename = $request->overview_image->getClientOriginalName();
+        // $location = $request->overview_image->move(public_path('images'), $filename);
+        if($request->get('overview_image'))
+        {
+           $car_name = $request->get('overview_image');
+           $overview_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+            strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('overview_image'))->save(public_path(
+               'images/').$overview_image);
+        }
         
         $res = CarOverview::updateOrCreate(
             ['car_id'=>request('car_id'), ],
             ['car_description'=>request('car_description'), 
-            'overview_image'=>url('public/images').'/'.$filename]
+            'overview_image'=>url('public/images').'/'.$overview_image]
         );
         return response($res);
     }
@@ -110,21 +110,21 @@ class CarController extends Controller
             'post_image'
         ]);
         
-        $filename = $request->post_image->getClientOriginalName();
-        $location = $request->post_image->move(public_path('images'), $filename);
-        // if($request->get('post_image'))
-        // {
-        //    $car_name = $request->get('post_image');
-        //    $post_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
-        //         strpos($car_name, ';')))[1])[1];
-        //    \Image::make($request->get('post_image'))->save(public_path(
-        //        'images/').$post_image);
-        // }
+        // $filename = $request->post_image->getClientOriginalName();
+        // $location = $request->post_image->move(public_path('images'), $filename);
+        if($request->get('post_image'))
+        {
+           $car_name = $request->get('post_image');
+           $post_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('post_image'))->save(public_path(
+               'images/').$post_image);
+        }
 
         $res = CarHighlightPost::updateOrCreate(
             ['highlight_id'=>request('highlight_id'), ],
             ['post_title'=>request('post_title'), 'post_description'=>request('post_description'),
-            'post_image'=>url('public/images').'/'.$filename]
+            'post_image'=>url('public/images').'/'.$post_image]
         );
         return response($res);
     }
@@ -134,20 +134,20 @@ class CarController extends Controller
             'car_id'=>'required',
             'gallery_image'
         ]);
-        $filename = $request->gallery_image->getClientOriginalName();
-        $location = $request->gallery_image->move(public_path('gallery'), $filename);
-        // if($request->get('gallery_image'))
-        // {
-        //    $car_name = $request->get('gallery_image');
-        //    $gallery_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
-        //         strpos($car_name, ';')))[1])[1];
-        //    \Image::make($request->get('gallery_image'))->save(public_path(
-        //        'images/').$gallery_image);
-        // }
+        // $filename = $request->gallery_image->getClientOriginalName();
+        // $location = $request->gallery_image->move(public_path('gallery'), $filename);
+        if($request->get('gallery_image'))
+        {
+           $car_name = $request->get('gallery_image');
+           $gallery_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('gallery_image'))->save(public_path(
+               'images/').$gallery_image);
+        }
 
         $res = CarGallery::updateOrCreate(
             ['car_id'=>request('car_id'), ],
-            ['gallery_image'=>url('public/images').'/'.$filename]
+            ['gallery_image'=>url('public/images').'/'.$gallery_image]
         );
         return response($res);
     }
@@ -171,20 +171,20 @@ class CarController extends Controller
             'color_title'=>'required', 
             'color_image'
         ]);
-        $filename = $request->color_image->getClientOriginalName();
-        $location = $request->color_image->move(public_path('gallery'), $filename);
-        // if($request->get('color_image'))
-        // {
-        //    $car_name = $request->get('color_image');
-        //    $color_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
-        //         strpos($car_name, ';')))[1])[1];
-        //    \Image::make($request->get('color_image'))->save(public_path(
-        //        'images/').$color_image);
-        // }
+        // $filename = $request->color_image->getClientOriginalName();
+        // $location = $request->color_image->move(public_path('gallery'), $filename);
+        if($request->get('color_image'))
+        {
+           $car_name = $request->get('color_image');
+           $color_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('color_image'))->save(public_path(
+               'images/').$color_image);
+        }
         $res = CarColors::updateOrCreate(
             ['car_id'=>request('car_id'), ],
             ['color_code'=>request('color_code'), 'color_title'=>request('color_title'),
-            'color_image'=>url('public/images').'/'.$filename]
+            'color_image'=>url('public/images').'/'.$color_image]
         );
         return response($res);
     }
@@ -262,8 +262,8 @@ class CarController extends Controller
     }
 
      public function index(){
-        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')
-        ->get(['cars.id','cars.car_title','car_types.car_type']);
+        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')->join('car_price_lists','car_price_lists.car_id', '=', 'cars.id')
+        ->get(['cars.id','cars.car_title','car_types.car_type','car_price_lists.car_price']);
         $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
             ->get('car_overviews.*');
         $car_overview_details= CarOverview::join(
