@@ -8,6 +8,7 @@ use App\Http\Controllers\ClassDetailsController;
 use App\Http\Controllers\AttributeDetailsController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SliderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -104,4 +105,10 @@ Route::group(['prefix' => 'menu'], function ()
     Route::delete('/delete/item/{id}', [MenuController::class, 'delete_item']);
     Route::delete('/delete/submenu/{id}', [MenuController::class, 'delete_submenu']);
     Route::get('/menu/{id}', [MenuController::class, 'only_menu']);
+});
+
+Route::group(['prefix' => 'slider'], function ()
+{
+    Route::post('/store', [SliderController::class, 'store']);
+    Route::get('/index', [SliderController::class, 'index']);
 });
