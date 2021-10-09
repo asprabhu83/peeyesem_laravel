@@ -9,6 +9,8 @@ use App\Http\Controllers\AttributeDetailsController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TestimonialController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -111,4 +113,19 @@ Route::group(['prefix' => 'slider'], function ()
 {
     Route::post('/store', [SliderController::class, 'store']);
     Route::get('/index', [SliderController::class, 'index']);
+});
+
+Route::group(['prefix' => 'blog'], function ()
+{
+    Route::post('/store', [BlogController::class, 'store']);
+    Route::get('/index', [BlogController::class, 'index']);
+});
+
+Route::group(['prefix' => 'testimonial'], function ()
+{
+    Route::post('/store', [TestimonialController::class, 'store']);
+    Route::get('/index', [TestimonialController::class, 'index']);
+    Route::get('/show/{id}', [TestimonialController::class, 'show']);
+    Route::put('/update/{id}', [TestimonialController::class, 'update']);
+    Route::delete('/delete/{id}', [TestimonialController::class, 'delete']);
 });
