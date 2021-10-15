@@ -16,7 +16,7 @@ class CreateCarOverviewsTable extends Migration
         Schema::create('car_overviews', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('car_id');
-            $table->string('car_description');
+            $table->text('car_description');
             $table->string('overview_image');
             $table->timestamps();
             $table->foreign('car_id')
