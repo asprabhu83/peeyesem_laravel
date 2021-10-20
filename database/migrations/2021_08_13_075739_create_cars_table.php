@@ -18,6 +18,7 @@ class CreateCarsTable extends Migration
             $table->unsignedBigInteger('car_type_id');
             $table->string('car_title');
             $table->string('car_image');
+            $table->string('poster_image');
             $table->timestamps();
         });
     }
