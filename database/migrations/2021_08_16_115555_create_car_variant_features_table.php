@@ -17,6 +17,7 @@ class CreateCarVariantFeaturesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('features_model_id');
             $table->string('variant_feature_type');
+            $table->string('variant_category');
             $table->string('variant_feature_value');
             $table->timestamps();
         });

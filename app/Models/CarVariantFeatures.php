@@ -19,5 +19,6 @@ class CarVariantFeatures extends Model
         'features_model_id',
         'variant_feature_type',
         'variant_feature_value'
+        'variant_category'
     ];
 }

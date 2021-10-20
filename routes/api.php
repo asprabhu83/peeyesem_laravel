@@ -11,6 +11,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\PageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -128,4 +129,13 @@ Route::group(['prefix' => 'testimonial'], function ()
     Route::get('/show/{id}', [TestimonialController::class, 'show']);
     Route::put('/update/{id}', [TestimonialController::class, 'update']);
     Route::delete('/delete/{id}', [TestimonialController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'page'], function ()
+{
+    Route::post('/store', [PageController::class, 'store']);
+    Route::get('/index', [PageController::class, 'index']);
+    Route::get('/show/{id}', [PageController::class, 'show']);
+    Route::put('/update/{id}', [PageController::class, 'update']);
+    Route::delete('/delete/{id}', [PageController::class, 'delete']);
 });

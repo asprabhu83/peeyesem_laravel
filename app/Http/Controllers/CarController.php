@@ -30,6 +30,7 @@ class CarController extends Controller
             'car_type_id'=>'required',
             'car_title'=>'required',
             'car_image',
+            'poster_image'
         ]);
         // $filename = $request->car_image->getClientOriginalName();
         // $location = $request->car_image->move(public_path('images'), $filename);
@@ -41,11 +42,19 @@ class CarController extends Controller
                 strpos($car_name, ';')))[1])[1];
            \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
         }
+        if($request->get('poster_image'))
+        {
+           $car_name = $request->get('poster_image');
+           $poster_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('poster_image'))->save(public_path('images/').$poster_image);
+        }
 
         $res = Car::updateOrCreate(
             ['car_title'=>request('car_title'), ],
             ['car_type_id'=>request('car_type_id'), 
-            'car_image'=>url('public/images').'/'.$car_image]
+            'car_image'=>url('public/images').'/'.$car_image, 
+            'poster_image'=>url('public/images').'/'.$poster_image]
         );
         return response($res); 
     }
@@ -236,11 +245,13 @@ class CarController extends Controller
             'features_model_id'=>'required',
             'variant_feature_type'=>'required',
             'variant_feature_value'=>'required',
+            'variant_category'=>'required'
         ]);
         $res = CarVariantFeatures::updateOrCreate(
             ['features_model_id'=>request('features_model_id'), ],
             ['variant_feature_type'=>request('variant_feature_type'),
-            'variant_feature_value'=>request('variant_feature_value')]
+            'variant_feature_value'=>request('variant_feature_value'),
+            'variant_category'=>request('variant_category')]
         );
         return response($res);        
     }

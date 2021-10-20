@@ -16,7 +16,8 @@ class Car extends Model
     protected $fillable = [
         'car_type_id',
         'car_title',
-        'car_image'
+        'car_image',
+        'poster_image'
     ];
 
     public function carType() {
