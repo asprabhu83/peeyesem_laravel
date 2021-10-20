@@ -53,8 +53,8 @@ class CarController extends Controller
         $res = Car::updateOrCreate(
             ['car_title'=>request('car_title'), ],
             ['car_type_id'=>request('car_type_id'), 
-            'car_image'=>url('public/images').'/'.$car_image, 
-            'poster_image'=>url('public/images').'/'.$poster_image]
+            'car_image'=>$car_image, 
+            'poster_image'=>$poster_image]
         );
         return response($res); 
     }
@@ -79,7 +79,7 @@ class CarController extends Controller
         $res = CarOverview::updateOrCreate(
             ['car_id'=>request('car_id'), ],
             ['car_description'=>request('car_description'), 
-            'overview_image'=>url('public/images').'/'.$overview_image]
+            'overview_image'=>$overview_image]
         );
         return response($res);
     }
@@ -133,7 +133,7 @@ class CarController extends Controller
         $res = CarHighlightPost::updateOrCreate(
             ['highlight_id'=>request('highlight_id'), ],
             ['post_title'=>request('post_title'), 'post_description'=>request('post_description'),
-            'post_image'=>url('public/images').'/'.$post_image]
+            'post_image'=>$post_image]
         );
         return response($res);
     }
@@ -156,7 +156,7 @@ class CarController extends Controller
 
         $res = CarGallery::updateOrCreate(
             ['car_id'=>request('car_id'), ],
-            ['gallery_image'=>url('public/images').'/'.$gallery_image]
+            ['gallery_image'=>$gallery_image]
         );
         return response($res);
     }
@@ -193,7 +193,7 @@ class CarController extends Controller
         $res = CarColors::updateOrCreate(
             ['car_id'=>request('car_id'), ],
             ['color_code'=>request('color_code'), 'color_title'=>request('color_title'),
-            'color_image'=>url('public/images').'/'.$color_image]
+            'color_image'=>$color_image]
         );
         return response($res);
     }

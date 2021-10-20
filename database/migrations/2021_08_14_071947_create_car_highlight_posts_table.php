@@ -17,7 +17,7 @@ class CreateCarHighlightPostsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('highlight_id');
             $table->string('post_title');
-            $table->string('post_description');
+            $table->text('post_description');
             $table->string('post_image');
             $table->timestamps();
         });
