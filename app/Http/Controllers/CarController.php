@@ -246,12 +246,14 @@ class CarController extends Controller
             'variant_feature_type'=>'required',
             'variant_feature_value'=>'required',
             'variant_category'=>'required'
+            'variant_feature_model'=>'required'
         ]);
         $res = CarVariantFeatures::updateOrCreate(
             ['features_model_id'=>request('features_model_id'), ],
             ['variant_feature_type'=>request('variant_feature_type'),
             'variant_feature_value'=>request('variant_feature_value'),
-            'variant_category'=>request('variant_category')]
+            'variant_category'=>request('variant_category'),
+            'variant_feature_model'=>request('variant_feature_model')]
         );
         return response($res);        
     }
