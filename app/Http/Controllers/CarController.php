@@ -207,8 +207,8 @@ class CarController extends Controller
             'spec_diesel',
         ]);
         $res = CarSpec::updateOrCreate(
-            ['spec_model'=>request('spec_model')],
-            ['car_id'=>request('car_id'),'spec_type'=>request('spec_type'), 
+            ['spec_model'=>request('spec_model'),'spec_type'=>request('spec_type')],
+            ['car_id'=>request('car_id'), 
             'spec_petrol'=>request('spec_petrol'), 'spec_diesel'=>request('spec_diesel')]
         );
         return response($res);
