@@ -18,8 +18,8 @@ class CreateCarSpecsTable extends Migration
             $table->unsignedBigInteger('car_id');
             $table->string('spec_type');
             $table->string('spec_model');
-            $table->string('spec_petrol');
-            $table->string('spec_diesel');
+            $table->string('spec_petrol')->nullable();
+            $table->string('spec_diesel')->nullable();
             $table->timestamps();
         });
         Schema::table('car_specs', function (Blueprint $table) {

@@ -16,9 +16,9 @@ class CreateCarOverviewDetailsTable extends Migration
         Schema::create('car_overview_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('overview_id');
-            $table->integer('car_power');
+            $table->string('car_power');
             $table->string('car_transmission');
-            $table->integer('car_mileage');
+            $table->string('car_mileage');
             $table->timestamps();
         });
 

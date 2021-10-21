@@ -17,6 +17,7 @@ class CreateCarColorsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('car_id');
             $table->string('color_code');
+            $table->string('second_color_code');
             $table->string('color_title');
             $table->string('color_image');
             $table->timestamps();

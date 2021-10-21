@@ -18,6 +18,7 @@ class CarColors extends Model
     protected $fillable = [
         'car_id',
         'color_code',
+        'second_color_code',
         'color_title',
         'color_image',
     ];

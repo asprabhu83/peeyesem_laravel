@@ -192,7 +192,7 @@ class CarController extends Controller
         }
         $res = CarColors::updateOrCreate(
             ['car_id'=>request('car_id'), ],
-            ['color_code'=>request('color_code'), 'color_title'=>request('color_title'),
+            ['color_code'=>request('color_code'), 'second_color_code'=>request('second_color_code'), 'color_title'=>request('color_title'),
             'color_image'=>$color_image]
         );
         return response($res);
@@ -252,8 +252,7 @@ class CarController extends Controller
             ['features_model_id'=>request('features_model_id'), ],
             ['variant_feature_type'=>request('variant_feature_type'),
             'variant_feature_value'=>request('variant_feature_value'),
-            'variant_category'=>request('variant_category'),
-            'variant_feature_model'=>request('variant_feature_model')]
+            'variant_category'=>request('variant_category'),]
         );
         return response($res);        
     }
@@ -272,6 +271,10 @@ class CarController extends Controller
             'car_price'=>request('car_price')]
         );
         return response($res);        
+    }
+
+    public function futureVariantIndex(){
+        return CarFeatureVariantModel::all();
     }
 
      public function index(){
