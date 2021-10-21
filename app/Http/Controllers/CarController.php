@@ -87,9 +87,9 @@ class CarController extends Controller
     public function overview_details(Request $request) {
         $data = $request->validate([
             'overview_id'=>'required',
-            'car_power'=>'required|numeric',
+            'car_power'=>'required',
             'car_transmission'=>'required',
-            'car_mileage'=>'required|numeric',
+            'car_mileage'=>'required',
         ]);
         $res = CarOverviewDetails::updateOrCreate(
             ['overview_id'=>request('overview_id'), ],
@@ -131,8 +131,8 @@ class CarController extends Controller
         }
 
         $res = CarHighlightPost::updateOrCreate(
-            ['highlight_id'=>request('highlight_id'), ],
-            ['post_title'=>request('post_title'), 'post_description'=>request('post_description'),
+            ['post_title'=>request('post_title')],
+            ['highlight_id'=>request('highlight_id'), 'post_description'=>request('post_description'),
             'post_image'=>$post_image]
         );
         return response($res);
@@ -191,8 +191,8 @@ class CarController extends Controller
                'images/').$color_image);
         }
         $res = CarColors::updateOrCreate(
-            ['car_id'=>request('car_id'), ],
-            ['color_code'=>request('color_code'), 'second_color_code'=>request('second_color_code'), 'color_title'=>request('color_title'),
+            ['color_title'=>request('color_title') ],
+            ['color_code'=>request('color_code'), 'car_id'=>request('car_id'),'second_color_code'=>request('second_color_code'), 
             'color_image'=>$color_image]
         );
         return response($res);
@@ -203,12 +203,12 @@ class CarController extends Controller
             'car_id'=>'required',
             'spec_type'=>'required',
             'spec_model'=>'required',
-            'spec_petrol'=>'required', 
-            'spec_diesel'=>'required',
+            'spec_petrol', 
+            'spec_diesel',
         ]);
         $res = CarSpec::updateOrCreate(
-            ['car_id'=>request('car_id'), ],
-            ['spec_type'=>request('spec_type'), 'spec_model'=>request('spec_model'),
+            ['spec_model'=>request('spec_model')],
+            ['car_id'=>request('car_id'),'spec_type'=>request('spec_type'), 
             'spec_petrol'=>request('spec_petrol'), 'spec_diesel'=>request('spec_diesel')]
         );
         return response($res);
@@ -230,12 +230,11 @@ class CarController extends Controller
 
     public function featureModel(Request $request) {
         $data = $request->validate([
-            'features_variant_id'=>'required',
             'feature_type'=>'required',
         ]);
         $res = CarFeatureVariantModel::updateOrCreate(
-            ['features_variant_id'=>request('features_variant_id'), ],
-            ['feature_type'=>request('feature_type'),]
+            ['feature_type'=>request('feature_type') ],
+            ['features_variant_id'=>request('features_variant_id')]
         );
         return response($res);        
     }
@@ -245,12 +244,11 @@ class CarController extends Controller
             'features_model_id'=>'required',
             'variant_feature_type'=>'required',
             'variant_feature_value'=>'required',
-            'variant_category'=>'required',
-            'variant_feature_model'=>'required'
+            'variant_category'=>'required'
         ]);
         $res = CarVariantFeatures::updateOrCreate(
-            ['features_model_id'=>request('features_model_id'), ],
-            ['variant_feature_type'=>request('variant_feature_type'),
+            ['variant_feature_type'=>request('variant_feature_type'), ],
+            ['features_model_id'=>request('features_model_id'),
             'variant_feature_value'=>request('variant_feature_value'),
             'variant_category'=>request('variant_category'),]
         );

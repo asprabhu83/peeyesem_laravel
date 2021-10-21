@@ -44,6 +44,9 @@ class Car extends Model
     public function carFeatureVariant() {
         return $this->hasMany(CarFeatureVariant::class, 'car_id');
     }
+    // public function carFeatureVariantModel() {
+    //     return $this->hasMany(CarFeatureVariantModel::class, 'car_id');
+    // }
     public function price() {
         return $this->hasMany(CarPriceList::class, 'car_id');
     }
