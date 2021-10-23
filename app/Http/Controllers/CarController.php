@@ -131,8 +131,8 @@ class CarController extends Controller
         }
 
         $res = CarHighlightPost::updateOrCreate(
-            ['post_title'=>request('post_title')],
-            ['highlight_id'=>request('highlight_id'), 'post_description'=>request('post_description'),
+            ['post_title'=>request('post_title'),'highlight_id'=>request('highlight_id')],
+            ['post_description'=>request('post_description'),
             'post_image'=>$post_image]
         );
         return response($res);
@@ -207,9 +207,8 @@ class CarController extends Controller
             'spec_diesel',
         ]);
         $res = CarSpec::updateOrCreate(
-            ['spec_model'=>request('spec_model'),'spec_type'=>request('spec_type')],
-            ['car_id'=>request('car_id'), 
-            'spec_petrol'=>request('spec_petrol'), 'spec_diesel'=>request('spec_diesel')]
+            ['spec_model'=>request('spec_model'),'spec_type'=>request('spec_type'),'car_id'=>request('car_id')],
+            ['spec_petrol'=>request('spec_petrol'), 'spec_diesel'=>request('spec_diesel')]
         );
         return response($res);
     }
