@@ -340,9 +340,15 @@ class CarController extends Controller
         $feature_id = $feature_variant[0]['id'];
         $feature_model = CarFeatureVariant::find($feature_id)->featureModel;
 
-        $model_id = $feature_model[0]['id'];
-        $varient_feature = CarFeatureVariantModel::find($model_id)->variantFeatures;
+        $varient_featurearr = array();        
+        foreach ($feature_model as $model_variant) {
+            $model_id = $model_variant['id'];
+            $varient_featurearr = array_merge($varient_featurearr,json_decode(CarFeatureVariantModel::find($model_id)->variantFeatures));
+        }
 
+        $varient_feature = $varient_featurearr;
+
+        
         $price_id = $feature_variant[0]['id'];
         $price = CarFeatureVariant::find($price_id)->variantPrice;
 
