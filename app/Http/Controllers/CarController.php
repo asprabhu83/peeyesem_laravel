@@ -273,7 +273,7 @@ class CarController extends Controller
     }
 
      public function index(){
-        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')->join('car_price_lists','car_price_lists.car_id','=','car.id')
+        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')->join('car_price_lists','car_price_lists.car_id','=','cars.id')
         ->get(['cars.id','cars.car_title', 'cars.car_image','cars.poster_image','car_types.car_type','car_price_lists.car_price']);
         $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
             ->get('car_overviews.*');
