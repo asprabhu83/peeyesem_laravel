@@ -96,6 +96,24 @@ Route::group(['prefix' => 'show'], function()
     Route::get('/car/{id}', [CarController::class, 'show']);
 });
 
+
+Route::group(['prefix' => 'update'], function()  
+{
+    Route::put('/car_detail/{id}', [CarController::class, 'car_detail_update']);
+    Route::put('/car_overview/{id}', [CarController::class, 'overview_update']);
+    Route::put('/overview_details/{id}', [CarController::class, 'overview_details_update']);
+    Route::put('/highlight/{id}', [CarController::class, 'highlight_update']);
+    Route::put('/highlight_post/{id}', [CarController::class, 'highlightPost_update']);
+    Route::put('/gallery/{id}', [CarController::class, 'gallery_update']);
+    Route::put('/video/{id}', [CarController::class, 'videoLink_update']);
+    Route::put('/color/{id}', [CarController::class, 'carColor_update']);
+    Route::put('/specs/{id}', [CarController::class, 'specs_update']);
+    Route::put('/variant/{id}', [CarController::class, 'variant_update']);
+    Route::put('/variant_model/{id}', [CarController::class, 'featureModel_update']);
+    Route::put('/feature/{id}', [CarController::class, 'variantFeature_update']);
+    Route::put('/price/{id}', [CarController::class, 'price_update']);
+});
+
 // page builder table
 
 Route::group(['prefix' => 'menu'], function ()

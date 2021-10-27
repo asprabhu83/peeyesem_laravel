@@ -59,6 +59,37 @@ class CarController extends Controller
         return response($res); 
     }
 
+    public function car_detail_update(Request $request, $id){
+
+        $car = Car::findOrFail($id);
+        if($request->get('car_image') && $request->get('car_image') !== '')
+        {
+           $car_name = $request->get('car_image');
+           $car_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('car_image'))->save(public_path('images/').$car_image);
+        }else{
+           $car_image = $car->getOriginal('car_image');
+        }
+        if($request->get('poster_image') && $request->get('car_image') !== '')
+        {
+           $car_name = $request->get('poster_image');
+           $poster_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('poster_image'))->save(public_path('images/').$poster_image);
+        }else{
+           $poster_image = $car->getOriginal('poster_image');
+        }
+        $car->update([
+            'car_title'=>request('car_title'),
+            'car_type_id'=>request('car_type_id'), 
+            'car_image'=>$car_image, 
+            'poster_image'=>$poster_image
+        ]);
+
+        return response($car);
+    }
+
     public function overview(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
@@ -84,6 +115,26 @@ class CarController extends Controller
         return response($res);
     }
 
+    public function overview_update(Request $request, $id){
+        $overview = CarOverview::findOrFail($id);
+        if($request->get('overview_image') && $request->get('overview_image') !== '')
+        {
+           $car_name = $request->get('overview_image');
+           $overview_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+            strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('overview_image'))->save(public_path(
+               'images/').$overview_image);
+        }else {
+            $overview_image = $overview->getOriginal('overview_image');
+        }
+        $overview->update([
+            'car_id'=>request('car_id'),
+            'car_description'=>request('car_description'), 
+            'overview_image'=>$overview_image
+        ]);
+        return response($overview);
+    }
+
     public function overview_details(Request $request) {
         $data = $request->validate([
             'overview_id'=>'required',
@@ -99,6 +150,12 @@ class CarController extends Controller
         return response($res);
     }
 
+    public function overview_details_update(Request $request, $id){
+        $overview_details = CarOverviewDetails::findOrFail($id);
+        $overview_details->update($request->all());
+        return response($overview_details);
+    }
+
     public function highlight(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
@@ -109,6 +166,12 @@ class CarController extends Controller
             ['highlight_title'=>request('highlight_title')]
         );
         return response($res);
+    }
+
+    public function highlight_update(Request $request, $id){
+        $highlight = CarHighlight::findOrFail($id);
+        $highlight->update($request->all());
+        return response($highlight);
     }
 
     public function highlightPost(Request $request) {
@@ -138,6 +201,27 @@ class CarController extends Controller
         return response($res);
     }
 
+    public function highlightPost_update(Request $request, $id){
+        $highlight_post = CarHighlightPost::findOrFail($id);
+        if($request->get('post_image') && $request->get('post_image') !== '')
+        {
+           $car_name = $request->get('post_image');
+           $post_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('post_image'))->save(public_path(
+               'images/').$post_image);
+        }else {
+            $post_image = $highlight_post->getOriginal('post_image');
+        }
+        $highlight_post->update([
+            'post_title'=>request('post_title'),
+            'highlight_id'=>request('highlight_id'),
+            'post_description'=>request('post_description'),
+            'post_image'=>$post_image
+        ]);
+        return response($highlight_post);
+    }
+
     public function gallery(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
@@ -161,6 +245,25 @@ class CarController extends Controller
         return response($res);
     }
 
+    public function gallery_update(Request $request, $id){
+        $gallery = CarGallery::findOrFail($id);
+        if($request->get('gallery_image') && $request->get('gallery_image') !== '')
+        {
+           $car_name = $request->get('gallery_image');
+           $gallery_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('gallery_image'))->save(public_path(
+               'images/').$gallery_image);
+        }else {
+            $gallery_image = $gallery->getOriginal('gallery_image');
+        }
+        $gallery->update([
+            'gallery_image'=>$gallery_image,
+            'car_id'=>request('car_id')
+        ]);
+        return response($gallery);
+    }
+
     public function videoLink(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
@@ -171,6 +274,12 @@ class CarController extends Controller
             ['youtube_link'=>request('youtube_link')]
         );
         return response($res);
+    }
+
+    public function videoLink_update(Request $request, $id){
+        $video = CarVideo::findOrFail($id);
+        $video->update($request->all());
+        return response($video);
     }
 
     public function carColor(Request $request) {
@@ -198,6 +307,28 @@ class CarController extends Controller
         return response($res);
     }
 
+    public function carColor_update(Request $request, $id){
+        $color = CarColors::findOrFail($id);
+        if($request->get('color_image') && $request->get('color_image') !== '')
+        {
+           $car_name = $request->get('color_image');
+           $color_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('color_image'))->save(public_path(
+               'images/').$color_image);
+        }else {
+            $color_image = $color->getOriginal('color_image');
+        }
+        $color->update([
+            'color_title'=>request('color_title'),
+            'color_code'=>request('color_code'),
+            'car_id'=>request('car_id'),
+            'second_color_code'=>request('second_color_code'), 
+            'color_image'=>$color_image
+        ]);
+        return response($color);
+    }
+
     public function specs(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
@@ -211,6 +342,12 @@ class CarController extends Controller
             ['spec_petrol'=>request('spec_petrol'), 'spec_diesel'=>request('spec_diesel')]
         );
         return response($res);
+    }
+
+    public function specs_update(Request $request, $id){
+        $spec = CarSpec::findOrFail($id);
+        $spec->update($request->all());
+        return response($spec);
     }
 
     public function variant(Request $request) {
@@ -227,6 +364,12 @@ class CarController extends Controller
         return response($res);
     }
 
+    public function variant_update(Request $request, $id){
+        $variant = CarFeatureVariant::findOrFail($id);
+        $variant->update($request->all());
+        return response($variant);
+    }
+
     public function featureModel(Request $request) {
         $data = $request->validate([
             'feature_type'=>'required',
@@ -235,6 +378,12 @@ class CarController extends Controller
             ['feature_type'=>request('feature_type'), 'features_variant_id'=>request('features_variant_id') ]
         );
         return response($res);        
+    }
+
+    public function featureModel_update(Request $request, $id){
+        $variant = CarFeatureVariantModel::findOrFail($id);
+        $variant->update($request->all());
+        return response($variant);
     }
 
     public function variantFeature(Request $request) {
@@ -252,6 +401,12 @@ class CarController extends Controller
         return response($res);        
     }
 
+    public function variantFeature_update(Request $request, $id){
+        $features = CarVariantFeatures::findOrFail($id);
+        $features->update($request->all());
+        return response($features);
+    }
+
     public function price(Request $request) {
         $data = $request->validate([
             'car_id'=>'required',
@@ -266,6 +421,12 @@ class CarController extends Controller
             'car_price'=>request('car_price')]
         );
         return response($res);        
+    }
+
+    public function price_update(Request $request, $id){
+        $price = CarPriceList::findOrFail($id);
+        $price->update($request->all());
+        return response($price);
     }
 
     public function futureVariantIndex(){
