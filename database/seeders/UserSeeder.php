@@ -28,6 +28,20 @@ class UserSeeder extends Seeder
 
         DB::table('permissions')->insert($permissions);
 
+        $settings = [
+            ['id' => 1,
+             'setting_id' => '1',
+             'site_logo' => '1635403410.png',
+             'service_number' => '9962666118',
+             'sales_number' => '9962666228',
+             'whatsapp_number' => '9962666118',
+             'fb_link' => 'https://www.facebook.com/',
+             'insta_link' => 'https://www.instagram.com/',
+             'youtube_link' => 'https://www.youtube.com/']
+        ];
+
+        DB::table('settings')->insert($settings);
+
         $car_types =[
             ['id'=>1, 'car_type'=>'SUV'],
             ['id'=>2, 'car_type'=>'SEDAN'],

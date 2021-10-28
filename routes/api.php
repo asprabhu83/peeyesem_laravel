@@ -12,6 +12,8 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AccessoriesController;
+use App\Http\Controllers\SettingsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -148,6 +150,24 @@ Route::group(['prefix' => 'testimonial'], function ()
     Route::get('/show/{id}', [TestimonialController::class, 'show']);
     Route::put('/update/{id}', [TestimonialController::class, 'update']);
     Route::delete('/delete/{id}', [TestimonialController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'accessories'], function ()
+{
+    Route::post('/store', [AccessoriesController::class, 'store']);
+    Route::get('/index', [AccessoriesController::class, 'index']);
+    Route::get('/show/{id}', [AccessoriesController::class, 'show']);
+    Route::put('/update/{id}', [AccessoriesController::class, 'update']);
+    Route::delete('/delete/{id}', [AccessoriesController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'settings'], function ()
+{
+    Route::post('/store', [SettingsController::class, 'store']);
+    Route::get('/index', [SettingsController::class, 'index']);
+    Route::get('/show/{id}', [SettingsController::class, 'show']);
+    Route::put('/update/{id}', [SettingsController::class, 'update']);
+    Route::delete('/delete/{id}', [SettingsController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'page'], function ()
