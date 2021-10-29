@@ -21,6 +21,7 @@ class Sellcar extends Model
         'purchase_year',
         'ownership',
         'expected_price',
-        'sell_type'
+        'sell_type',
+        'agreement'
     ];
 }

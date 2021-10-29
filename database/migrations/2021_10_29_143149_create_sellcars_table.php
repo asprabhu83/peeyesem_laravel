@@ -28,6 +28,7 @@ class CreateSellcarsTable extends Migration
             $table->string('ownership')->nullable();
             $table->string('expected_price')->nullable();
             $table->string('sell_type')->nullable();
+            $table->string('agreement')->nullable();
             $table->timestamps();
         });
     }
