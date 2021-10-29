@@ -14,6 +14,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AccessoriesController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SellcarController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -168,6 +169,15 @@ Route::group(['prefix' => 'settings'], function ()
     Route::get('/show/{id}', [SettingsController::class, 'show']);
     Route::put('/update/{id}', [SettingsController::class, 'update']);
     Route::delete('/delete/{id}', [SettingsController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'sell_car'], function ()
+{
+    Route::post('/store', [SellcarController::class, 'store']);
+    Route::get('/index', [SellcarController::class, 'index']);
+    Route::get('/show/{id}', [SellcarController::class, 'show']);
+    Route::put('/update/{id}', [SellcarController::class, 'update']);
+    Route::delete('/delete/{id}', [SellcarController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'page'], function ()
