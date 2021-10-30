@@ -22,6 +22,5 @@ class Sellcar extends Model
         'ownership',
         'expected_price',
         'sell_type',
-        'agreement'
     ];
 }
