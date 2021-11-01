@@ -15,6 +15,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AccessoriesController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SellcarController;
+use App\Http\Controllers\InsuranceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -178,6 +179,15 @@ Route::group(['prefix' => 'sell_car'], function ()
     Route::get('/show/{id}', [SellcarController::class, 'show']);
     Route::put('/update/{id}', [SellcarController::class, 'update']);
     Route::delete('/delete/{id}', [SellcarController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'insurance'], function ()
+{
+    Route::post('/store', [InsuranceController::class, 'store']);
+    Route::get('/index', [InsuranceController::class, 'index']);
+    Route::get('/show/{id}', [InsuranceController::class, 'show']);
+    Route::put('/update/{id}', [InsuranceController::class, 'update']);
+    Route::delete('/delete/{id}', [InsuranceController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'page'], function ()

@@ -31,8 +31,8 @@ class SellcarController extends Controller
 
     public function delete(Request $request, $id)
     {
-        $slider = Slider::findOrFail($id);
-        $slider->delete();
+        $Sellcar = Sellcar::findOrFail($id);
+        $Sellcar->delete();
 
         return 204;
     }
