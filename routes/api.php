@@ -15,7 +15,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AccessoriesController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SellcarController;
-use App\Http\Controllers\InsuranceController;
+use App\Http\Controllers\CarFormController;
+use App\Http\Controllers\UsedCarController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -181,13 +182,22 @@ Route::group(['prefix' => 'sell_car'], function ()
     Route::delete('/delete/{id}', [SellcarController::class, 'delete']);
 });
 
-Route::group(['prefix' => 'insurance'], function ()
+Route::group(['prefix' => 'car_form'], function ()
 {
-    Route::post('/store', [InsuranceController::class, 'store']);
-    Route::get('/index', [InsuranceController::class, 'index']);
-    Route::get('/show/{id}', [InsuranceController::class, 'show']);
-    Route::put('/update/{id}', [InsuranceController::class, 'update']);
-    Route::delete('/delete/{id}', [InsuranceController::class, 'delete']);
+    Route::post('/store', [CarFormController::class, 'store']);
+    Route::get('/index', [CarFormController::class, 'index']);
+    Route::get('/show/{id}', [CarFormController::class, 'show']);
+    Route::put('/update/{id}', [CarFormController::class, 'update']);
+    Route::delete('/delete/{id}', [CarFormController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'used_car'], function ()
+{
+    Route::post('/store', [UsedCarController::class, 'store']);
+    Route::get('/index', [UsedCarController::class, 'index']);
+    Route::get('/show/{id}', [UsedCarController::class, 'show']);
+    Route::put('/update/{id}', [UsedCarController::class, 'update']);
+    Route::delete('/delete/{id}', [UsedCarController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'page'], function ()
