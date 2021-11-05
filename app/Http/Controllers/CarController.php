@@ -434,50 +434,50 @@ class CarController extends Controller
     }
 
      public function index(){
-        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')->join('car_price_lists','car_price_lists.car_id','=','cars.id')
-        ->get(['cars.id','cars.car_title', 'cars.car_image','cars.poster_image','car_types.car_type','car_price_lists.car_price']);
-        $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
-            ->get('car_overviews.*');
-        $car_overview_details= CarOverview::join(
-            'car_overview_details','car_overview_details.overview_id','=','car_overviews.id'
-        )->get('car_overview_details.*');
-        $car_highlight = Car::join('car_highlights', 'car_highlights.car_id', '=', 'cars.id')
-            ->get('car_highlights.*');
-        $highlight_post = CarHighlight::join('car_highlight_posts',
-            'car_highlight_posts.highlight_id','=', 'car_highlights.id')
-            ->get('car_highlight_posts.*');
-        $gallery = Car::join('car_galleries', 'car_galleries.car_id', '=', 'cars.id')
-            ->get('car_galleries.*');
-        $video = Car::join('car_videos', 'car_videos.car_id', '=', 'cars.id')
-            ->get('car_videos.*');
-        $car_color = Car::join('car_colors', 'car_colors.car_id', '=', 'cars.id')
-            ->get('car_colors.*');
-        $car_specs = Car::join('car_specs', 'car_specs.car_id', '=', 'cars.id')
-            ->get('car_specs.*');
-        $feature_variant = Car::join('car_feature_variants', 'car_feature_variants.car_id',
-            '=', 'cars.id'
-        )->get('car_feature_variants.*');  
-        $feature_model = CarFeatureVariant::join(
-            'car_feature_variant_models', 'car_feature_variant_models.features_variant_id', 
-            '=', 'car_feature_variants.id'
-        )->get('car_feature_variant_models.*');
-        $varient_feature = CarFeatureVariantModel::join(
-            'car_variant_features', 'car_variant_features.features_model_id',
-            '=', 'car_feature_variant_models.id'
-        )->get('car_variant_features.*');
-        $price = Car::join(
-            'car_feature_variants', 'car_feature_variants.car_id', '=',
-            'cars.id'
-        )->join('car_price_lists', 'car_price_lists.features_variant_id', '=',
-            'car_feature_variants.id'
-        )->get('car_price_lists.*');
+        $id_array = Car::where('id' ,'>' ,0)->get('id');
+        $cars_response =[];
+        foreach ($id_array as $all_id) {
+            $id = $all_id['id'];
+                $cars=Car::find($id);
+                $car_overview = Car::findOrFail($id)->carOverviews;
 
-        return response(['cars' => $cars, 'car_overview' =>$car_overview,
-            'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
-            'highlight_post'=>$highlight_post, 'gallery'=>$gallery, 'video'=>$video,
-            'car_color'=>$car_color, 'car_specs'=>$car_specs, 'feature_variant'=>$feature_variant,
-            'feature_model'=>$feature_model, 'varient_feature' => $varient_feature, 'price' => $price
-        ]);
+                $overview_id = $car_overview['id'];
+                $overview_details= CarOverview::findOrFail($overview_id)->overviews;
+                
+                $highlight = Car::find($id)->carHighlights;
+
+                $highlight_id = $highlight[0]['id'];
+                $highlight_post = CarHighlight::find($highlight_id)->highlightPost;
+
+                $gallery = Car::find($id)->carGalleries;
+                $videos = Car::find($id)->carVideos;
+                $colors = Car::find($id)->carColors;
+                $specs = Car::find($id)->carSpecs;
+                $feature_variant = Car::find($id)->carFeatureVariant;
+
+                $feature_id = $feature_variant[0]['id'];
+                $feature_model = CarFeatureVariant::find($feature_id)->featureModel;
+
+                $varient_featurearr = array();        
+                foreach ($feature_model as $model_variant) {
+                    $model_id = $model_variant['id'];
+                    $varient_featurearr = array_merge($varient_featurearr,json_decode(CarFeatureVariantModel::find($model_id)->variantFeatures));
+                }
+
+                $varient_feature = $varient_featurearr;
+
+                
+                $price_id = $feature_variant[0]['id'];
+                $price = CarFeatureVariant::find($price_id)->variantPrice;
+              $cars_response[]= ['car'=>$cars , "overview"=>$car_overview, 
+                    "overview_details"=>$overview_details, "highlight"=>$highlight,
+                    "highlight_post"=>$highlight_post, "gallery"=>$gallery, "videos"=>$videos,
+                    "colors"=>$colors, "specs"=>$specs, "feature_variant"=>$feature_variant,
+                    "feature_model"=>$feature_model, "varient_feature"=>$varient_feature, 
+                    "price"=>$price
+            ];
+        }
+        return $cars_response;
     }
 
     public function show($id){
