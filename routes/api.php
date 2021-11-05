@@ -93,6 +93,7 @@ Route::group(['prefix' => 'store'], function()
 
 Route::get('car/types', [CarController::class, 'car_type']);
 Route::get('cars/index', [CarController::class, 'index']);
+Route::get('cars/all_car_index', [CarController::class, 'secondary_index']);
 Route::get('cars_variant/index', [CarController::class, 'futureVariantIndex']);
 Route::delete('cars/delete/{id}', [CarController::class, 'delete']);
 
