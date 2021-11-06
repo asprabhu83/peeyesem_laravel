@@ -472,7 +472,9 @@ class CarController extends Controller
                 $price_id = $feature_variant[0]['id'];
                 $price = CarFeatureVariant::find($price_id)->variantPrice;
                 $car_price = CarFeatureVariant::find($price_id)->variantPrice->car_price;
-              $cars_response[]= ["car_title"=>$car_title, 'car_image' => $car_image, "car_price"=>$car_price,'car'=>$cars , "overview"=>$car_overview, 
+                $car_type_id = Car::find($id)->car_type_id;
+                $car_type = CarType::find($car_type_id)->car_type;
+              $cars_response[]= ["car_id"=>$id,"car_type"=>$car_type,"car_title"=>$car_title, 'car_image' => $car_image, "car_price"=>$car_price,'car'=>$cars , "overview"=>$car_overview, 
                     "overview_details"=>$overview_details, "highlight"=>$highlight,
                     "highlight_post"=>$highlight_post, "gallery"=>$gallery, "videos"=>$videos,
                     "colors"=>$colors, "specs"=>$specs, "feature_variant"=>$feature_variant,
