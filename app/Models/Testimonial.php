@@ -11,6 +11,7 @@ class Testimonial extends Model
     protected $fillable = [
         'quote',
         'authour',
-        'authour_type'
+        'authour_type',
+        'data_value'
     ];
 }

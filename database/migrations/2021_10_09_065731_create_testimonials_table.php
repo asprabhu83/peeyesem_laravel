@@ -18,6 +18,7 @@ class CreateTestimonialsTable extends Migration
             $table->text('quote');
             $table->string('authour');
             $table->string('authour_type');
+            $table->longText('data_value')->nullable();
             $table->timestamps();
         });
     }
