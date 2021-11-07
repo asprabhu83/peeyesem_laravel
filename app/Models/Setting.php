@@ -16,6 +16,7 @@ class Setting extends Model
         'whatsapp_number',
         'fb_link',
         'insta_link',
-        'youtube_link'
+        'youtube_link',
+        'data_value'
     ];
 }

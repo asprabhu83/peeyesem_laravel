@@ -10,6 +10,7 @@ class Slider extends Model
     use HasFactory;
     protected $fillable = [
         'slider_image',
-        'slider_link'
+        'slider_link',
+        'data_value'
     ];
 }
