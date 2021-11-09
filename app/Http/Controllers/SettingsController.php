@@ -33,7 +33,7 @@ class SettingsController extends Controller
             'whatsapp_number'=>request('whatsapp_number'),
             'fb_link'=>request('fb_link'),
             'insta_link'=>request('insta_link'), 
-            'youtube_link'=>request('youtube_link')]
+            'youtube_link'=>request('youtube_link'),'data_value'=>request('data_value')]
         );
         return response($res);
     }
@@ -58,7 +58,8 @@ class SettingsController extends Controller
             'whatsapp_number'=>request('whatsapp_number'),
             'fb_link'=>request('fb_link'),
             'insta_link'=>request('insta_link'), 
-            'youtube_link'=>request('youtube_link')
+            'youtube_link'=>request('youtube_link'),
+            'data_value'=>request('data_value')
         ]);
 
         return $Setting;
