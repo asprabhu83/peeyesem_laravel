@@ -18,6 +18,7 @@ class CarFeatureVariantModel extends Model
     protected $fillable = [
         'features_variant_id',
         'feature_type',
+        'data_value'
     ];
 
     public function variantFeatures() {

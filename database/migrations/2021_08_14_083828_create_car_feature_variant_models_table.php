@@ -17,6 +17,7 @@ class CreateCarFeatureVariantModelsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('features_variant_id');
             $table->string('feature_type');
+            $table->longText('data_value');
             $table->timestamps();
         });
         Schema::table('car_feature_variant_models', function (Blueprint $table) {
