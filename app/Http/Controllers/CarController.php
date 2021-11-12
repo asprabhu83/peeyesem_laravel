@@ -485,59 +485,59 @@ class CarController extends Controller
         return $cars_response;
     }
 
-    public function index(){
-        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')->join('car_price_lists','car_price_lists.car_id','=','cars.id')
-        ->get(['cars.id','cars.car_title', 'cars.car_image','cars.poster_image','car_types.car_type','car_price_lists.car_price']);
-
-        return response(['cars' => $cars]);
-    }
-
     // public function index(){
     //     $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')->join('car_price_lists','car_price_lists.car_id','=','cars.id')
     //     ->get(['cars.id','cars.car_title', 'cars.car_image','cars.poster_image','car_types.car_type','car_price_lists.car_price']);
-    //     $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
-    //         ->get('car_overviews.*');
-    //     $car_overview_details= CarOverview::join(
-    //         'car_overview_details','car_overview_details.overview_id','=','car_overviews.id'
-    //     )->get('car_overview_details.*');
-    //     $car_highlight = Car::join('car_highlights', 'car_highlights.car_id', '=', 'cars.id')
-    //         ->get('car_highlights.*');
-    //     $highlight_post = CarHighlight::join('car_highlight_posts',
-    //         'car_highlight_posts.highlight_id','=', 'car_highlights.id')
-    //         ->get('car_highlight_posts.*');
-    //     $gallery = Car::join('car_galleries', 'car_galleries.car_id', '=', 'cars.id')
-    //         ->get('car_galleries.*');
-    //     $video = Car::join('car_videos', 'car_videos.car_id', '=', 'cars.id')
-    //         ->get('car_videos.*');
-    //     $car_color = Car::join('car_colors', 'car_colors.car_id', '=', 'cars.id')
-    //         ->get('car_colors.*');
-    //     $car_specs = Car::join('car_specs', 'car_specs.car_id', '=', 'cars.id')
-    //         ->get('car_specs.*');
-    //     $feature_variant = Car::join('car_feature_variants', 'car_feature_variants.car_id',
-    //         '=', 'cars.id'
-    //     )->get('car_feature_variants.*');  
-    //     $feature_model = CarFeatureVariant::join(
-    //         'car_feature_variant_models', 'car_feature_variant_models.features_variant_id', 
-    //         '=', 'car_feature_variants.id'
-    //     )->get('car_feature_variant_models.*');
-    //     $varient_feature = CarFeatureVariantModel::join(
-    //         'car_variant_features', 'car_variant_features.features_model_id',
-    //         '=', 'car_feature_variant_models.id'
-    //     )->get('car_variant_features.*');
-    //     $price = Car::join(
-    //         'car_feature_variants', 'car_feature_variants.car_id', '=',
-    //         'cars.id'
-    //     )->join('car_price_lists', 'car_price_lists.features_variant_id', '=',
-    //         'car_feature_variants.id'
-    //     )->get('car_price_lists.*');
 
-    //     return response(['cars' => $cars, 'car_overview' =>$car_overview,
-    //         'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
-    //         'highlight_post'=>$highlight_post, 'gallery'=>$gallery, 'video'=>$video,
-    //         'car_color'=>$car_color, 'car_specs'=>$car_specs, 'feature_variant'=>$feature_variant,
-    //         'feature_model'=>$feature_model, 'varient_feature' => $varient_feature, 'price' => $price
-    //     ]);
+    //     return response(['cars' => $cars]);
     // }
+
+    public function index(){
+        $cars = Car::join('car_types','car_types.id','=','cars.car_type_id')->join('car_price_lists','car_price_lists.car_id','=','cars.id')
+        ->get(['cars.id','cars.car_title', 'cars.car_image','cars.poster_image','car_types.car_type','car_price_lists.car_price']);
+        $car_overview= Car::join('car_overviews','car_overviews.car_id','=','cars.id')
+            ->get('car_overviews.*');
+        $car_overview_details= CarOverview::join(
+            'car_overview_details','car_overview_details.overview_id','=','car_overviews.id'
+        )->get('car_overview_details.*');
+        $car_highlight = Car::join('car_highlights', 'car_highlights.car_id', '=', 'cars.id')
+            ->get('car_highlights.*');
+        $highlight_post = CarHighlight::join('car_highlight_posts',
+            'car_highlight_posts.highlight_id','=', 'car_highlights.id')
+            ->get('car_highlight_posts.*');
+        $gallery = Car::join('car_galleries', 'car_galleries.car_id', '=', 'cars.id')
+            ->get('car_galleries.*');
+        $video = Car::join('car_videos', 'car_videos.car_id', '=', 'cars.id')
+            ->get('car_videos.*');
+        $car_color = Car::join('car_colors', 'car_colors.car_id', '=', 'cars.id')
+            ->get('car_colors.*');
+        $car_specs = Car::join('car_specs', 'car_specs.car_id', '=', 'cars.id')
+            ->get('car_specs.*');
+        $feature_variant = Car::join('car_feature_variants', 'car_feature_variants.car_id',
+            '=', 'cars.id'
+        )->get('car_feature_variants.*');  
+        $feature_model = CarFeatureVariant::join(
+            'car_feature_variant_models', 'car_feature_variant_models.features_variant_id', 
+            '=', 'car_feature_variants.id'
+        )->get('car_feature_variant_models.*');
+        $varient_feature = CarFeatureVariantModel::join(
+            'car_variant_features', 'car_variant_features.features_model_id',
+            '=', 'car_feature_variant_models.id'
+        )->get('car_variant_features.*');
+        $price = Car::join(
+            'car_feature_variants', 'car_feature_variants.car_id', '=',
+            'cars.id'
+        )->join('car_price_lists', 'car_price_lists.features_variant_id', '=',
+            'car_feature_variants.id'
+        )->get('car_price_lists.*');
+
+        return response(['cars' => $cars, 'car_overview' =>$car_overview,
+            'overview_details'=>$car_overview_details, 'car_highlight'=>$car_highlight,
+            'highlight_post'=>$highlight_post, 'gallery'=>$gallery, 'video'=>$video,
+            'car_color'=>$car_color, 'car_specs'=>$car_specs, 'feature_variant'=>$feature_variant,
+            'feature_model'=>$feature_model, 'varient_feature' => $varient_feature, 'price' => $price
+        ]);
+    }
 
     public function show($id){
         $cars=Car::find($id);
