@@ -18,15 +18,41 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-        return Slider::create($request->all());
+        if($request->get('slider_image'))
+        {
+           $car_name = $request->get('slider_image');
+           $slider_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('slider_image'))->save(public_path(
+               'images/').$slider_image);
+        }
+        $res = Slider::updateOrCreate(
+            ['slider_image'=>$slider_image],
+            ['slider_link'=>request('slider_link'),
+            'data_value'=>request('data_value') ]
+        );
+        return response($res); 
     }
 
     public function update(Request $request, $id)
     {
-        $slider = Slider::findOrFail($id);
-        $slider->update($request->all());
+        $Slider = Slider::findOrFail($id);
+        if($request->get('slider_image') && $request->get('slider_image') !== '')
+        {
+           $car_name = $request->get('slider_image');
+           $slider_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
+                strpos($car_name, ';')))[1])[1];
+           \Image::make($request->get('slider_image'))->save(public_path('images/').$slider_image);
+        }else{
+           $slider_image = $Slider->getOriginal('slider_image');
+        }
+        $Slider->update([
+            'slider_link'=>request('slider_link'),
+            'slider_image'=>$slider_image,
+            'data_value'=>request('data_value')
+        ]);
 
-        return $slider;
+        return $Slider;
     }
 
     public function delete(Request $request, $id)

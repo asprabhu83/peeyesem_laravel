@@ -139,6 +139,9 @@ Route::group(['prefix' => 'slider'], function ()
 {
     Route::post('/store', [SliderController::class, 'store']);
     Route::get('/index', [SliderController::class, 'index']);
+    Route::get('/show/{id}', [SliderController::class, 'show']);
+    Route::put('/update/{id}', [SliderController::class, 'update']);
+    Route::delete('/delete/{id}', [SliderController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'blog'], function ()
