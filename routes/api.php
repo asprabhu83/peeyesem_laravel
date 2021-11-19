@@ -17,6 +17,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SellcarController;
 use App\Http\Controllers\CarFormController;
 use App\Http\Controllers\UsedCarController;
+use App\Http\Controllers\NewsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -160,6 +161,16 @@ Route::group(['prefix' => 'testimonial'], function ()
     Route::get('/show/{id}', [TestimonialController::class, 'show']);
     Route::put('/update/{id}', [TestimonialController::class, 'update']);
     Route::delete('/delete/{id}', [TestimonialController::class, 'delete']);
+});
+
+
+Route::group(['prefix' => 'news_events'], function ()
+{
+    Route::post('/store', [NewsController::class, 'store']);
+    Route::get('/index', [NewsController::class, 'index']);
+    Route::get('/show/{id}', [NewsController::class, 'show']);
+    Route::put('/update/{id}', [NewsController::class, 'update']);
+    Route::delete('/delete/{id}', [NewsController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'accessories'], function ()
