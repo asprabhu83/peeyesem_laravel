@@ -20,6 +20,8 @@ if (file_exists(__DIR__.'/../storage/framework/maintenance.php')) {
     require __DIR__.'/../storage/framework/maintenance.php';
 }
 
+header("Access-Control-Allow-Origin: *");
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
