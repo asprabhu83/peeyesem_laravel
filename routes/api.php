@@ -18,6 +18,7 @@ use App\Http\Controllers\SellcarController;
 use App\Http\Controllers\CarFormController;
 use App\Http\Controllers\UsedCarController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -97,6 +98,9 @@ Route::get('cars/all', [CarController::class, 'index']);
 Route::get('cars/all_car', [CarController::class, 'secondary_index']);
 Route::get('cars_variant/index', [CarController::class, 'futureVariantIndex']);
 Route::delete('cars/delete/{id}', [CarController::class, 'delete']);
+
+
+Route::post('send_mail', [MailController::class, 'mail']);
 
 Route::group(['prefix' => 'show'], function()  
 {
