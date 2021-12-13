@@ -590,34 +590,34 @@ class CarController extends Controller
 
     //Repeaters Index
 
-    public function highlight_index($id)
+    public function highlight_index()
     {
-        return CarHighlightPost::find($id);
+        return CarHighlightPost::all();
     }
 
-    public function gallery_index($id)
+    public function gallery_index()
     {
-        return CarGallery::find($id);
+        return CarGallery::all();
     }
 
-    public function colors_index($id)
+    public function colors_index()
     {
-        return CarColors::find($id);
+        return CarColors::all();
     }
 
-    public function specs_index($id)
+    public function specs_index()
     {
-        return CarSpec::find($id);
+        return CarSpec::all();
     }
 
-    public function feature_model_index($id)
+    public function feature_model_index()
     {
-        return CarFeatureVariantModel::find($id);
+        return CarFeatureVariantModel::all();
     }
 
-    public function varient_feature_index($id)
+    public function varient_feature_index()
     {
-        return CarVariantFeatures::find($id);
+        return CarVariantFeatures::all();
     }
 
     // public function update(Request $request, $id){
