@@ -131,6 +131,16 @@ Route::group(['prefix' => 'update'], function()
     Route::put('/price/{id}', [CarController::class, 'price_update']);
 });
 
+Route::group(['prefix' => 'delete'], function()  
+{
+    Route::delete('/highlight_post/{id}', [CarController::class, 'highlightPost_delete']);
+    Route::delete('/gallery/{id}', [CarController::class, 'gallery_delete']);
+    Route::delete('/color/{id}', [CarController::class, 'carColor_delete']);
+    Route::delete('/specs/{id}', [CarController::class, 'specs_delete']);
+    Route::delete('/variant_model/{id}', [CarController::class, 'featureModel_delete']);
+    Route::delete('/feature/{id}', [CarController::class, 'variantFeature_delete']);
+});
+
 // page builder table
 
 Route::group(['prefix' => 'menu'], function ()

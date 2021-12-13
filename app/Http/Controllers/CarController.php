@@ -620,6 +620,46 @@ class CarController extends Controller
         return CarVariantFeatures::all();
     }
 
+    // Repeaters Delete Method 
+
+    public function highlightPost_delete(Request $request, $id)
+    {
+        $News = CarHighlightPost::findOrFail($id);
+        $News->delete();
+        return 204;
+    }
+    public function gallery_delete(Request $request, $id)
+    {
+        $News = CarGallery::findOrFail($id);
+        $News->delete();
+        return 204;
+    }
+    public function carColor_delete(Request $request, $id)
+    {
+        $News = CarColors::findOrFail($id);
+        $News->delete();
+        return 204;
+    }
+    public function specs_delete(Request $request, $id)
+    {
+        $News = CarSpec::findOrFail($id);
+        $News->delete();
+        return 204;
+    }
+    public function featureModel_delete(Request $request, $id)
+    {
+        $News = CarFeatureVariantModel::findOrFail($id);
+        $News->delete();
+        return 204;
+    }
+    public function variantFeature_delete(Request $request, $id)
+    {
+        $News = CarVariantFeatures::findOrFail($id);
+        $News->delete();
+        return 204;
+    }
+
+
     // public function update(Request $request, $id){
     //     $car = Car::findOrFail($id);
     //     $car->update($request->all());
