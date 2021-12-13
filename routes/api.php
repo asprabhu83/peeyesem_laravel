@@ -105,6 +105,12 @@ Route::post('send_mail', [MailController::class, 'mail']);
 Route::group(['prefix' => 'show'], function()  
 {
     Route::get('/car/{id}', [CarController::class, 'show']);
+    Route::get('/highlight_index', [CarController::class, 'highlight_index']);
+    Route::get('/gallery_index', [CarController::class, 'gallery_index']);
+    Route::get('/colors_index', [CarController::class, 'colors_index']);
+    Route::get('/specs_index', [CarController::class, 'specs_index']);
+    Route::get('/feature_model_index', [CarController::class, 'feature_model_index']);
+    Route::get('/varient_feature_index', [CarController::class, 'varient_feature_index']);
 });
 
 

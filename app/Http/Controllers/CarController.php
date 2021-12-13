@@ -588,6 +588,38 @@ class CarController extends Controller
         return 204;
     }
 
+    //Repeaters Index
+
+    public function highlight_index($id)
+    {
+        return CarHighlightPost::find($id);
+    }
+
+    public function gallery_index($id)
+    {
+        return CarGallery::find($id);
+    }
+
+    public function colors_index($id)
+    {
+        return CarColors::find($id);
+    }
+
+    public function specs_index($id)
+    {
+        return CarSpec::find($id);
+    }
+
+    public function feature_model_index($id)
+    {
+        return CarFeatureVariantModel::find($id);
+    }
+
+    public function varient_feature_index($id)
+    {
+        return CarVariantFeatures::find($id);
+    }
+
     // public function update(Request $request, $id){
     //     $car = Car::findOrFail($id);
     //     $car->update($request->all());
