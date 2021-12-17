@@ -11,6 +11,6 @@ class Page extends Model
     protected $fillable = [
         'page_title',
         'page_content',
-        'form_id'
+        'data_value'
     ];
 }

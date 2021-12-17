@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('page_title');
             $table->longText('page_content');
-            $table->string('form_id');
+            $table->string('data_value')->nullable();
             $table->timestamps();
         });
     }
