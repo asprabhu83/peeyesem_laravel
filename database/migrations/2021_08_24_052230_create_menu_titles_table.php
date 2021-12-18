@@ -16,6 +16,7 @@ class CreateMenuTitlesTable extends Migration
         Schema::create('menu_titles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('menu_type');
+            $table->string('data_value')->nullable();
             $table->timestamps();
         });
     }

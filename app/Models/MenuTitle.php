@@ -15,6 +15,7 @@ class MenuTitle extends Model
 
     protected $fillable = [
         'menu_type',
+        'data_value'
     ];
 
     public function menuTitles() {
