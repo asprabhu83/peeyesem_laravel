@@ -12,6 +12,7 @@ class MenuController extends Controller
     public function menu_title(Request $request) {
         $data = $request->validate([
             'menu_type'=>'required',
+            'data_value'
         ]);
 
         $res = MenuTitle::create($data);
