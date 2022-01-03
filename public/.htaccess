@@ -53,7 +53,6 @@
   ExpiresDefault "access plus 2 days"
   ExpiresByType image/jpg "access plus 1 month"
   ExpiresByType image/webp "access plus 1 month"
-  ExpiresByType image/webm "access plus 1 month"
   ExpiresByType image/svg+xml "access 1 month"
   ExpiresByType image/gif "access plus 1 month"
   ExpiresByType image/jpeg "access plus 1 month"
