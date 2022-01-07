@@ -43,6 +43,7 @@ class SliderController extends Controller
            $slider_image = time().'.' . explode('/', explode(':', substr($car_name, 0, 
                 strpos($car_name, ';')))[1])[1];
            \Image::make($request->get('slider_image'))->save(public_path('images/').$slider_image);
+        //    \Image::make($request->get('slider_image'))->resize(300, 300)->save(public_path('images/resize_').$slider_image);
         }else{
            $slider_image = $Slider->getOriginal('slider_image');
         }
