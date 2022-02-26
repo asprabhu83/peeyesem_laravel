@@ -102,6 +102,10 @@ Route::delete('cars/delete/{id}', [CarController::class, 'delete']);
 
 Route::post('send_mail', [MailController::class, 'mail']);
 
+Route::post('send_reset_link', [MailController::class, 'sendResetLink']);
+
+Route::post('reset_password', [MailController::class, 'resetPassword']);
+
 Route::group(['prefix' => 'show'], function()  
 {
     Route::get('/car/{id}', [CarController::class, 'show']);
