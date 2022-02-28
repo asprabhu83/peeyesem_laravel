@@ -69,7 +69,7 @@ class MailController extends Controller
    public function resetPassword(Request $request){
        $request->validate([
            'email'=>'required|email|exists:users,email',
-           'password'=>'required|min:5|confirmed',
+           'password'=>'required|confirmed',
            'password_confirmation'=>'required',
        ]);
 
