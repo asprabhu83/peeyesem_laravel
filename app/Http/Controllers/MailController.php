@@ -59,7 +59,7 @@ class MailController extends Controller
                      ->subject('Reset Password');
        });
 
-       return back()->with('success', 'We have e-mailed your password reset link!');
+       return response(['message' => 'successfully sent']);
    }
 
    public function showResetForm(Request $request, $token = null){
